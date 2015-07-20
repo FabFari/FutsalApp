@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="window_background">#FFF5F5F5</color>
+    <!-- Colore barra notifiche -->
+    <color name="color_primary_dark">#6D8020</color>
+    <!-- Colore action bar -->
+    <color name="color_primary">#A1BD48</color>
+    <color name="color_accent">#F50057</color>
+</resources>
