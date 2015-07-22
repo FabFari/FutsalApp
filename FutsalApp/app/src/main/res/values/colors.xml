@@ -5,6 +5,6 @@
     <color name="color_primary_dark">#6D8020</color>
     <!-- Colore action bar -->
     <color name="color_primary">#A1BD48</color>
-    <color name="color_accent">#F50057</color>
+    <color name="color_accent">#AEEA00</color>
     <color name="white">#FFFFFF</color>
 </resources>

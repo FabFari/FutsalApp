@@ -5,4 +5,18 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login_registrati">LoginRegistratiActivity</string>
     <string name="title_activity_registrazione">Registrazione</string>
+    <string name="title_activity_principale">PrincipaleActivity</string>
+
+    <!-- Per SharedPreferences
+    <string name="pref_name">MyPref</string>
+    <string name="sess_pref">IdSessione</string>
+    <string name="email_pref">EmailUtente</string>
+    -->
+    <string-array name="ruoli">
+        <item>Portiere</item>
+        <item>Difensore</item>
+        <item>Centrocampista</item>
+        <item>Attaccante</item>
+    </string-array>
+
 </resources>

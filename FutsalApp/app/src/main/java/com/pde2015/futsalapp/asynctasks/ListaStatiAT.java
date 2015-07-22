@@ -53,8 +53,7 @@ public class ListaStatiAT extends AsyncTask<Void, Void, ListaStatiBean> {
     }
 
     protected void onPostExecute(ListaStatiBean response) {
-        System.out.println("httpCode: "+response.getHttpCode());
-        if(response.getHttpCode() == null || !response.getHttpCode().equals(AppConstants.NOT_FOUND))
+        if(response != null && (response.getHttpCode() == null || !response.getHttpCode().equals(AppConstants.NOT_FOUND)))
             taskCallback.done(true, response.getStatiSuccessivi());
         else {
             alert.showAlertDialog(activity,

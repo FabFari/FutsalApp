@@ -51,7 +51,7 @@ public class AggiornaStatoAT extends AsyncTask<PayloadBean, Void, DefaultBean> {
     }
 
     protected void onPostExecute(DefaultBean response) {
-        if(response.getHttpCode().equals(AppConstants.OK))
+        if(response != null && response.getHttpCode().equals(AppConstants.OK))
             taskCallback.done(true);
         else {
             alert.showAlertDialog(activity,

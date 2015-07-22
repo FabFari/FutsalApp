@@ -1,24 +1,44 @@
 package com.pde2015.futsalapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.appspot.futsalapp_1008.pdE2015.model.DefaultBean;
+import com.appspot.futsalapp_1008.pdE2015.model.InfoGiocatoreBean;
 import com.pde2015.futsalapp.AppConstants;
 import com.pde2015.futsalapp.R;
+import com.pde2015.futsalapp.taskcallbacks.RegistrazioneTC;
 import com.pde2015.futsalapp.taskcallbacks.SessioneIndietroTC;
+import com.pde2015.futsalapp.asynctasks.RegistrazioneAT;
 import com.pde2015.futsalapp.asynctasks.SessioneIndietroAT;
 import com.pde2015.futsalapp.utils.AlertDialogManager;
 import com.pde2015.futsalapp.utils.ConnectionDetector;
 import com.appspot.futsalapp_1008.pdE2015.model.PayloadBean;
+import com.squareup.picasso.Picasso;
 
-public class RegistrazioneActivity extends AppCompatActivity implements SessioneIndietroTC{
+public class RegistrazioneActivity extends AppCompatActivity implements SessioneIndietroTC, RegistrazioneTC {
 
     Long idSessione;
+    String email, nome, pic, ruolo;
+    int telefono;
     ConnectionDetector cd;
     AlertDialogManager alert = new AlertDialogManager();
+    Spinner spinner;
+    EditText emailText, nomeText, telefonoText;
+
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +46,38 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
         setContentView(R.layout.activity_registrazione);
         Bundle extras = getIntent().getExtras();
         idSessione = (Long)extras.get("idSessione");
+        nome = (String)extras.get("nome");
+        email = (String)extras.get("email");
+        pic = (String)extras.get("pic");
+
+        // Popolamento Spinner
+        spinner = (Spinner)findViewById(R.id.ruoli_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.ruoli, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        // Impostazione campi
+        emailText = (EditText)findViewById(R.id.insertEmail);
+        emailText.setText(email);
+        emailText.setClickable(false);
+        emailText.setFocusable(false);
+
+        nomeText = (EditText)findViewById(R.id.insertNome);
+        nomeText.setText(nome);
+
+        ImageView immagine = (ImageView)findViewById(R.id.immagine);
+        Picasso.with(RegistrazioneActivity.this).load(pic).into(immagine);
+
+        telefonoText = (EditText)findViewById(R.id.insertTelefono);
+
+         /* VISUALIZZO ACTION BAR CON LOGO */
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.logo_small);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
     }
 
     @Override
@@ -41,10 +93,31 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        try {
+            if(id == R.id.confirm) {
+                if(nomeText.getText().toString().length() > 0 && telefonoText.getText().toString().length() > 0
+                        && Integer.parseInt(telefonoText.getText().toString()) > 0) {
+                    nome = nomeText.getText().toString();
+                    telefono = Integer.parseInt(telefonoText.getText().toString());
+                    ruolo = spinner.getSelectedItem().toString();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+                    InfoGiocatoreBean payload = new InfoGiocatoreBean();
+                    payload.setEmail(email);
+                    payload.setFotoProfilo(pic);
+                    payload.setNome(nome);
+                    payload.setRuoloPreferito(ruolo);
+                    payload.setTelefono(Integer.toString(telefono));
+
+                    if(checkNetwork()) new RegistrazioneAT(getApplicationContext(), this, this, idSessione, payload).execute();
+
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Compilare tutti i campi!", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+        catch(NumberFormatException e) {
+            Toast.makeText(getApplicationContext(),"Inserire un numero telefonico valido!", Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -78,11 +151,25 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
     public void done(boolean res, String nuovoStato) {
         if(res) {
             if(nuovoStato.equals(AppConstants.LOGIN_E_REGISTRAZIONE)) {
-                Intent myIntent = new Intent(this, LoginRegistratiActivity.class);
+                Intent myIntent = new Intent(getApplicationContext(), LoginRegistratiActivity.class);
                 myIntent.putExtra("idSessione", idSessione);
                 startActivity(myIntent);
                 this.finish();
             }
+        }
+    }
+
+    public void done(boolean res, DefaultBean response) {
+        if( res && response.getHttpCode().equals(AppConstants.OK)) {
+            pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString("EmailUtente", email);
+            editor.commit();
+            Intent myIntent = new Intent(getApplicationContext(), PrincipaleActivity.class);
+            myIntent.putExtra("idSessione", idSessione);
+            myIntent.putExtra("email", email);
+            startActivity(myIntent);
+            this.finish();
         }
     }
 

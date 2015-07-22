@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import android.content.Intent;
+import android.content.SharedPreferences;
 
 import com.pde2015.futsalapp.R;
 
@@ -22,6 +23,8 @@ public class SplashscreenActivity extends AppCompatActivity implements Inserisci
     // Id della sessione con il server
     Long idSessione;
 
+    SharedPreferences pref;
+
     // Controllo connessione
     ConnectionDetector cd;
     AlertDialogManager alert = new AlertDialogManager();
@@ -30,6 +33,30 @@ public class SplashscreenActivity extends AppCompatActivity implements Inserisci
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splashscreen);
+
+        // Controllo pre-esistenza sessione
+        pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+        Long x = pref.getLong("IdSessione",-1);
+        if(x != -1) {
+            String y = pref.getString("EmailUtente", null);
+            if(y != null) {
+                Intent myIntent = new Intent(getApplicationContext(), PrincipaleActivity.class);
+                myIntent.putExtra("idSessione", x);
+                myIntent.putExtra("emailUtente", y);
+                startActivity(myIntent);
+                this.finish();
+            }
+            else {
+                this.idSessione = idSessione;
+                Intent myIntent = new Intent(getApplicationContext(), LoginRegistratiActivity.class);
+                myIntent.putExtra("IdSessione", x);
+                startActivity(myIntent);
+                this.finish();
+            }
+        }
+
         if(checkNetwork()) new InserisciSessioneAT(getApplicationContext(), SplashscreenActivity.this ,this).execute();
     }
 
@@ -58,7 +85,11 @@ public class SplashscreenActivity extends AppCompatActivity implements Inserisci
     public void done(boolean response, Long idSessione) {
         if(response && idSessione != null) {
             this.idSessione = idSessione;
-            Intent myIntent = new Intent(this, LoginRegistratiActivity.class);
+            pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putLong("IdSessione", idSessione);
+            editor.commit();
+            Intent myIntent = new Intent(getApplicationContext(), LoginRegistratiActivity.class);
             myIntent.putExtra("idSessione", idSessione);
             startActivity(myIntent);
             this.finish();

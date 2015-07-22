@@ -50,7 +50,7 @@ public class SessioneIndietroAT extends AsyncTask<PayloadBean, Void, PayloadBean
     }
 
     protected void onPostExecute(PayloadBean response) {
-        if(response.getNuovoStato() != null)
+        if(response != null && response.getNuovoStato() != null)
             taskCallback.done(true, response.getNuovoStato());
         else {
             alert.showAlertDialog(activity,
