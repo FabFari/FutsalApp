@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pde2015.futsalapp.activities.ProfileActivity">
+
+    <item
+        android:id="@+id/edit_profile"
+        android:title="@string/edit_profile"
+        android:icon="@drawable/edit"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/show_invites"
+        android:title="@string/show_invites"
+        android:icon="@drawable/invitation"
+        android:orderInCategory="1"
+        app:showAsAction="always" />
+
+</menu>

@@ -7,4 +7,5 @@
     <color name="color_primary">#A1BD48</color>
     <color name="color_accent">#AEEA00</color>
     <color name="white">#FFFFFF</color>
+    <color name="grey">#DDDDDD</color>
 </resources>

@@ -72,6 +72,7 @@ dependencies {
         exclude(group: 'com.google.android', module: 'android')
     }
     compile files('libs/picasso-2.4.0.jar')
+    compile 'com.github.markushi:circlebutton:1.1'
     // LIBRARIES
     /*
     compile files('libs/commons-logging-1.1.1-sources.jar')

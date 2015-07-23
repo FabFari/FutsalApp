@@ -1,49 +1,42 @@
 package com.pde2015.futsalapp.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.util.Log;
 
 import com.appspot.futsalapp_1008.pdE2015.model.DefaultBean;
+import com.appspot.futsalapp_1008.pdE2015.model.PayloadBean;
 import com.appspot.futsalapp_1008.pdE2015.model.InfoGiocatoreBean;
+
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.pde2015.futsalapp.AppConstants;
 import com.pde2015.futsalapp.R;
-import com.pde2015.futsalapp.taskcallbacks.RegistrazioneTC;
-import com.pde2015.futsalapp.taskcallbacks.SessioneIndietroTC;
-import com.pde2015.futsalapp.asynctasks.RegistrazioneAT;
-import com.pde2015.futsalapp.asynctasks.SessioneIndietroAT;
-import com.pde2015.futsalapp.taskcallbacks.ListaStatiTC;
 import com.pde2015.futsalapp.asynctasks.ListaStatiAT;
+import com.pde2015.futsalapp.asynctasks.SessioneIndietroAT;
+import com.pde2015.futsalapp.asynctasks.SetGiocatoreAT;
+import com.pde2015.futsalapp.taskcallbacks.ListaStatiTC;
+import com.pde2015.futsalapp.taskcallbacks.SessioneIndietroTC;
+import com.pde2015.futsalapp.taskcallbacks.SetGiocatoreTC;
 import com.pde2015.futsalapp.utils.AlertDialogManager;
 import com.pde2015.futsalapp.utils.ConnectionDetector;
-import com.appspot.futsalapp_1008.pdE2015.model.PayloadBean;
 import com.pde2015.futsalapp.utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
-public class RegistrazioneActivity extends AppCompatActivity implements SessioneIndietroTC, RegistrazioneTC,
-            ListaStatiTC {
-
-    private static final String TAG = "RegistrazioneActivity";
+public class ModificaProfiloActivity extends AppCompatActivity implements ListaStatiTC, SetGiocatoreTC, SessioneIndietroTC {
 
     Long idSessione;
-    String email, nome, pic, ruolo;
-    int telefono;
+    String email, nome, ruolo, telefono, pic;
     ConnectionDetector cd;
     AlertDialogManager alert = new AlertDialogManager();
     Spinner spinner;
@@ -51,38 +44,37 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
     LinkedList<Class> listaActivity;
     CircularProgressView cpv;
 
-    SharedPreferences pref;
-
-    boolean hasDone = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registrazione);
+        setContentView(R.layout.activity_modifica_profilo);
 
         Bundle extras = getIntent().getExtras();
         idSessione = (Long)extras.get("idSessione");
-        nome = (String)extras.get("nome");
         email = (String)extras.get("email");
+        nome = (String)extras.get("nome");
+        ruolo = (String)extras.get("ruolo");
+        telefono = (String)extras.get("telefono");
         pic = (String)extras.get("pic");
 
         cpv =(CircularProgressView)findViewById(R.id.progress_view);
         cpv.setVisibility(View.VISIBLE);
-        Log.e(TAG, "Inizio ottenimento stati");
         // Ottenimento stati
         if(checkNetwork()) new ListaStatiAT(getApplicationContext(), this, idSessione, this).execute();
 
         // Costruzione schermata
-        setContentView(R.layout.activity_registrazione);
+
         // Popolamento Spinner
         spinner = (Spinner)findViewById(R.id.ruoli_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.ruoli, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        int spinnerPosition = adapter.getPosition(ruolo);
+        spinner.setSelection(spinnerPosition);
 
         // Impostazione campi
-        emailText = (EditText)findViewById(R.id.insertEmail);
+        emailText = (EditText) findViewById(R.id.insertEmail);
         emailText.setText(email);
         emailText.setClickable(false);
         emailText.setFocusable(false);
@@ -91,9 +83,10 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
         nomeText.setText(nome);
 
         ImageView immagine = (ImageView)findViewById(R.id.immagine);
-        Picasso.with(RegistrazioneActivity.this).load(pic).into(immagine);
+        Picasso.with(ModificaProfiloActivity.this).load(pic).into(immagine);
 
         telefonoText = (EditText)findViewById(R.id.insertTelefono);
+        telefonoText.setText(telefono);
 
          /* VISUALIZZO ACTION BAR CON LOGO */
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -107,7 +100,7 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_registrazione, menu);
+        getMenuInflater().inflate(R.menu.menu_modifica_profilo, menu);
         return true;
     }
 
@@ -119,34 +112,32 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
         int id = item.getItemId();
         try {
             if(id == R.id.confirm) {
-                if(hasDone) {
-                    Log.e(TAG, "Test1 OK");
-                    if(listaActivity.contains(PrincipaleActivity.class)) {
-                        Log.e(TAG, "Test2 OK");
-                        if(nomeText.getText().toString().length() > 0 && telefonoText.getText().toString().length() > 0
-                                && Integer.parseInt(telefonoText.getText().toString()) > 0) {
-                            Log.e(TAG, "Test3 OK");
-                            nome = nomeText.getText().toString();
-                            telefono = Integer.parseInt(telefonoText.getText().toString());
-                            ruolo = spinner.getSelectedItem().toString();
+                if(listaActivity.contains(ProfileActivity.class)) {
+                    if(nomeText.getText().toString().length() > 0 && telefonoText.getText().toString().length() > 0
+                            && Integer.parseInt(telefonoText.getText().toString()) > 0) {
+                        nome = nomeText.getText().toString();
+                        telefono = telefonoText.getText().toString();
+                        ruolo = spinner.getSelectedItem().toString();
 
-                            InfoGiocatoreBean payload = new InfoGiocatoreBean();
-                            payload.setEmail(email);
-                            payload.setFotoProfilo(pic);
-                            payload.setNome(nome);
-                            payload.setRuoloPreferito(ruolo);
-                            payload.setTelefono(Integer.toString(telefono));
+                        InfoGiocatoreBean payload = new InfoGiocatoreBean();
+                        payload.setEmail(email);
+                        payload.setFotoProfilo(pic);
+                        payload.setNome(nome);
+                        payload.setRuoloPreferito(ruolo);
+                        payload.setTelefono(telefono);
 
-                            if(checkNetwork()) new RegistrazioneAT(getApplicationContext(), this, this, idSessione, payload).execute();
+                        cpv =(CircularProgressView)findViewById(R.id.progress_view);
+                        cpv.setVisibility(View.VISIBLE);
 
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(),"Compilare tutti i campi!", Toast.LENGTH_LONG).show();
-                        }
+                        if(checkNetwork()) new SetGiocatoreAT(getApplicationContext(), this, this, idSessione, payload).execute();
+
                     }
-                    else
-                        Toast.makeText(getApplicationContext(), "Impossibile passare all'Activity 'PrincipaleActivity': Stato non raggiungibile!", Toast.LENGTH_LONG);
+                    else {
+                        Toast.makeText(getApplicationContext(), "Compilare tutti i campi!", Toast.LENGTH_LONG).show();
+                    }
                 }
+                else
+                    Toast.makeText(getApplicationContext(), "Impossibile passare all'Activity 'ProfileActivity': Stato non raggiungibile!", Toast.LENGTH_LONG);
             }
         }
         catch(NumberFormatException e) {
@@ -162,6 +153,10 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
         if(checkNetwork()) {
             PayloadBean bean = new PayloadBean();
             bean.setIdSessione(idSessione);
+
+            cpv =(CircularProgressView)findViewById(R.id.progress_view);
+            cpv.setVisibility(View.VISIBLE);
+
             new SessioneIndietroAT(getApplicationContext(), this, this, idSessione).execute(bean);
         }
     }
@@ -173,7 +168,7 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
             return true;
         }else{
             // Internet Connection is not present
-            alert.showAlertDialog(RegistrazioneActivity.this,
+            alert.showAlertDialog(ModificaProfiloActivity.this,
                     "Connessione Internet assente",
                     "Controlla la tua connessione internet!", false);
             // stop executing code by return
@@ -182,27 +177,15 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
     }
 
     public void done(boolean res, String nuovoStato) {
+        cpv.setVisibility(View.GONE);
         if(res) {
-            if(nuovoStato.equals(AppConstants.LOGIN_E_REGISTRAZIONE)) {
-                Intent myIntent = new Intent(getApplicationContext(), LoginRegistratiActivity.class);
+            if(nuovoStato.equals(AppConstants.PROFILO)) {
+                Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
                 myIntent.putExtra("idSessione", idSessione);
+                myIntent.putExtra("email", email);
                 startActivity(myIntent);
                 this.finish();
             }
-        }
-    }
-
-    public void done(boolean res, DefaultBean response) {
-        if( res && response.getHttpCode().equals(AppConstants.OK)) {
-            pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.putString("EmailUtente", email);
-            editor.commit();
-            Intent myIntent = new Intent(getApplicationContext(), PrincipaleActivity.class);
-            myIntent.putExtra("idSessione", idSessione);
-            myIntent.putExtra("email", email);
-            startActivity(myIntent);
-            this.finish();
         }
     }
 
@@ -211,10 +194,18 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
             SessionManager sm = new SessionManager(listaStati);
             listaActivity = sm.getListaActivity();
             cpv.setVisibility(View.GONE);
-            hasDone = true;
-            Log.e(TAG, "ListaStati Finito");
         }
 
+    }
+
+    public void done(boolean res, DefaultBean response) {
+        if( res && response.getHttpCode().equals(AppConstants.OK)) {
+            Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+            myIntent.putExtra("idSessione", idSessione);
+            myIntent.putExtra("email", email);
+            startActivity(myIntent);
+            this.finish();
+        }
     }
 
 }

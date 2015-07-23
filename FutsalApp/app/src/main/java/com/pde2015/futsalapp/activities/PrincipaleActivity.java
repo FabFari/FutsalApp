@@ -1,18 +1,25 @@
 package com.pde2015.futsalapp.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.util.Log;
 
 import com.pde2015.futsalapp.R;
 
 public class PrincipaleActivity extends AppCompatActivity {
 
+    private static final String TAG = "PrincipaleActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principale);
+        Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivity(myIntent);
+        this.finish();
     }
 
     @Override

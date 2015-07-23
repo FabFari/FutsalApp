@@ -78,6 +78,7 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
     // Flag per distinguere Login da Registrati
     private boolean takenLogin = false;
     private boolean hasClicked = false;
+    private boolean infoRetrieved = false;
 
     private Button btnSignIn, btnLogIn;
 
@@ -91,8 +92,7 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
         Bundle extras = getIntent().getExtras();
         idSessione = (Long)extras.get("idSessione");
 
-        // Ottenimento stati
-        if(checkNetwork()) new ListaStatiAT(getApplicationContext(), this, idSessione, this).execute();
+        Log.e(TAG, "idSessione: "+idSessione);
 
         // Build GoogleApiClient with access to basic profile
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -101,6 +101,9 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
                 .addApi(Plus.API)
                 .addScope(Plus.SCOPE_PLUS_PROFILE)
                 .build();
+
+        // Ottenimento stati
+        if(checkNetwork()) new ListaStatiAT(getApplicationContext(), this, idSessione, this).execute();
 
         //while(!sessionCreated);
 
@@ -192,9 +195,6 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
         mSignInClicked = false;
         //Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
 
-        CircularProgressView cd =(CircularProgressView)findViewById(R.id.progress_view);
-        cd.setVisibility(View.VISIBLE);
-
         // Get user's information
         getProfileInformation();
 
@@ -229,7 +229,7 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getApplicationContext(), "Id: "+view.getId(), Toast.LENGTH_LONG);
+        //Toast.makeText(getApplicationContext(), "Id: "+view.getId(), Toast.LENGTH_LONG);
         switch (view.getId()) {
             case R.id.btn_login:
                 //Toast.makeText(getApplicationContext(), "Bottone Cliccato!", Toast.LENGTH_LONG);
@@ -238,6 +238,7 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
                 takenLogin = true;
                 if(mConnectionResult != null)
                     signInWithGplus();
+                    //finalizeSignIn();
                 break;
             case R.id.btn_sign_in:
                 if(listaActivity.contains(RegistrazioneActivity.class)) {
@@ -247,8 +248,9 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
                     //CircularProgressView cd =(CircularProgressView)((LoginRegistratiActivity)v.getContext()).findViewById(R.id.progress_view);
                     //cd.setVisibility(View.VISIBLE);
                     //Login Google per le informazioni utente
-                    if(mConnectionResult != null)
-                        signInWithGplus();
+                    //if(mConnectionResult != null)
+                    signInWithGplus();
+                    //finalizeSignIn();
                     // Aggiornamento Stato Server
                     //PayloadBean p = new PayloadBean();
                     //p.setIdSessione(idSessione);
@@ -287,13 +289,14 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
             sessionCreated = true;
             //aggiornaGrafica();
             // Aggiornamento Grafica e Impostazione Lisstener per login
+            Log.e(TAG, "Done Lista Stati");
             setContentView(R.layout.activity_login_registrati);
             btnSignIn = (Button) findViewById(R.id.btn_sign_in);
             btnLogIn = (Button) findViewById(R.id.btn_login);
 
             btnSignIn.setOnClickListener(this);
             btnLogIn.setOnClickListener(this);
-
+            Log.e(TAG, "Listener impostati");
         }
 
     }
@@ -367,7 +370,14 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
             resolveSignInError();
         }
     }
-
+    /*
+    private void signInWithGplus() {
+        if (!mGoogleApiClient.isConnecting()) {
+            mSignInClicked = true;
+            resolveSignInError();
+        }
+    }
+    */
     /**
      * Method to resolve any signin errors
      * */
@@ -394,6 +404,10 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
 
                 pic = pic.substring(0, pic.length() - 6);
 
+                //infoRetrieved = true;
+                finalizeSignIn();
+
+                /*
                 if(hasClicked){
                     if(takenLogin) { //Login
                        takenLogin=false;
@@ -401,16 +415,20 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
                         SharedPreferences.Editor editor = pref.edit();
                         editor.putString("EmailUtente", email);
                         editor.commit();
+                        CircularProgressView cd =(CircularProgressView)findViewById(R.id.progress_view);
+                        cd.setVisibility(View.VISIBLE);
                        if(checkNetwork()) new LoginAT(getApplicationContext(), this, this, idSessione, email).execute();
                     }
                     else { // Registrati
-                       PayloadBean p = new PayloadBean();
-                       p.setIdSessione(idSessione);
-                       p.setNuovoStato(AppConstants.REGISTRAZIONE);
-                       if(checkNetwork()) new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
+                        PayloadBean p = new PayloadBean();
+                        p.setIdSessione(idSessione);
+                        p.setNuovoStato(AppConstants.REGISTRAZIONE);
+                        CircularProgressView cd =(CircularProgressView)findViewById(R.id.progress_view);
+                        cd.setVisibility(View.VISIBLE);
+                        if(checkNetwork()) new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
                     }
                 }
-
+                */
             }
             else {
                 Toast.makeText(getApplicationContext(),
@@ -419,6 +437,32 @@ public class LoginRegistratiActivity extends AppCompatActivity implements ListaS
         }
         catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void finalizeSignIn() {
+
+        //if(!infoRetrieved) getProfileInformation();
+
+        if(hasClicked){
+            if(takenLogin) { //Login
+                takenLogin=false;
+                pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.putString("EmailUtente", email);
+                editor.commit();
+                CircularProgressView cd =(CircularProgressView)findViewById(R.id.progress_view);
+                cd.setVisibility(View.VISIBLE);
+                if(checkNetwork()) new LoginAT(getApplicationContext(), this, this, idSessione, email).execute();
+            }
+            else { // Registrati
+                PayloadBean p = new PayloadBean();
+                p.setIdSessione(idSessione);
+                p.setNuovoStato(AppConstants.REGISTRAZIONE);
+                CircularProgressView cd =(CircularProgressView)findViewById(R.id.progress_view);
+                cd.setVisibility(View.VISIBLE);
+                if(checkNetwork()) new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
+            }
         }
     }
 

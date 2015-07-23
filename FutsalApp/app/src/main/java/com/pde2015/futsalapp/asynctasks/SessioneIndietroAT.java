@@ -3,6 +3,7 @@ package com.pde2015.futsalapp.asynctasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.app.Activity;
+import android.util.Log;
 
 import com.pde2015.futsalapp.utils.AlertDialogManager;
 

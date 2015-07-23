@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.pde2015.futsalapp.R;
 
@@ -19,6 +20,8 @@ import com.pde2015.futsalapp.asynctasks.InserisciSessioneAT;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 
 public class SplashscreenActivity extends AppCompatActivity implements InserisciSessioneTC {
+
+    private static final String TAG = "SplashscreenActivity";
 
     // Id della sessione con il server
     Long idSessione;
@@ -42,6 +45,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Inserisci
         if(x != -1) {
             String y = pref.getString("EmailUtente", null);
             if(y != null) {
+                Log.e(TAG, "Lancio Principale");
                 Intent myIntent = new Intent(getApplicationContext(), PrincipaleActivity.class);
                 myIntent.putExtra("idSessione", x);
                 myIntent.putExtra("emailUtente", y);
@@ -49,15 +53,19 @@ public class SplashscreenActivity extends AppCompatActivity implements Inserisci
                 this.finish();
             }
             else {
-                this.idSessione = idSessione;
+                Log.e(TAG, "Lancio LoginRegistrati");
+                this.idSessione = x;
+                Log.e(TAG, "IdSessione: "+ x);
                 Intent myIntent = new Intent(getApplicationContext(), LoginRegistratiActivity.class);
-                myIntent.putExtra("IdSessione", x);
+                myIntent.putExtra("idSessione", x);
                 startActivity(myIntent);
                 this.finish();
             }
         }
-
-        if(checkNetwork()) new InserisciSessioneAT(getApplicationContext(), SplashscreenActivity.this ,this).execute();
+        else {
+            Log.e(TAG, "Chiamo API");
+            if(checkNetwork()) new InserisciSessioneAT(getApplicationContext(), SplashscreenActivity.this ,this).execute();
+        }
     }
 
     @Override
@@ -89,6 +97,7 @@ public class SplashscreenActivity extends AppCompatActivity implements Inserisci
             SharedPreferences.Editor editor = pref.edit();
             editor.putLong("IdSessione", idSessione);
             editor.commit();
+            Log.e(TAG, "IdSessione: "+pref.getLong("IdSessione", -1));
             Intent myIntent = new Intent(getApplicationContext(), LoginRegistratiActivity.class);
             myIntent.putExtra("idSessione", idSessione);
             startActivity(myIntent);

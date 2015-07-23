@@ -25,6 +25,12 @@ public class SessionManager {
                     listaActivity.add(LoginRegistratiActivity.class);
                 else if(stato.equals(AppConstants.REGISTRAZIONE))
                     listaActivity.add(RegistrazioneActivity.class);
+                else if(stato.equals(AppConstants.PRINCIPALE))
+                    listaActivity.add(PrincipaleActivity.class);
+                else if(stato.equals(AppConstants.PROFILO))
+                    listaActivity.add(ProfileActivity.class);
+                else if(stato.equals(AppConstants.MODIFICA_PROFILO))
+                    listaActivity.add(ModificaProfiloActivity.class);
         }
 
         return listaActivity;

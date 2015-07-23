@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.pde2015.futsalapp.R;
 
@@ -61,7 +62,8 @@ public class InserisciSessioneAT extends AsyncTask<Void, Void, PayloadBean> {
         else {
             CircularProgressView cpv = (CircularProgressView)activity.findViewById(R.id.progress_view);
             cpv.setVisibility(View.GONE);
-            //Toast.makeText(context, "Si è verificato un problema. Riprovare!", Toast.LENGTH_LONG).show();
+            //Log.e("InserisciSessioneAT", "response = "+ response);
+            //if(response != null) Log.e("InserisciSessioneAT", "httpCde = " + response.getHttpCode());
             alert.showAlertDialog(activity,
                     "Attenzione!",
                     "Si è verificato un problema. Riprovare!", false);
