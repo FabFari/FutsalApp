@@ -12,17 +12,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appspot.futsalapp_1008.pdE2015.PdE2015;
+import com.appspot.futsalapp_1008.pdE2015.model.DefaultBean;
 import com.appspot.futsalapp_1008.pdE2015.model.GiocatoreBean;
 import com.appspot.futsalapp_1008.pdE2015.model.PayloadBean;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.pde2015.futsalapp.AppConstants;
 import com.pde2015.futsalapp.R;
 import com.pde2015.futsalapp.asynctasks.AggiornaStatoAT;
+import com.pde2015.futsalapp.asynctasks.SessioneIndietroAT;
 import com.pde2015.futsalapp.taskcallbacks.AggiornaStatoTC;
 import com.pde2015.futsalapp.taskcallbacks.ListaStatiTC;
 import com.pde2015.futsalapp.asynctasks.ListaStatiAT;
 import com.pde2015.futsalapp.taskcallbacks.GetGiocatoreTC;
 import com.pde2015.futsalapp.asynctasks.GetGiocatoreAT;
+import com.pde2015.futsalapp.taskcallbacks.SessioneIndietroTC;
 import com.pde2015.futsalapp.utils.AlertDialogManager;
 import com.pde2015.futsalapp.utils.ConnectionDetector;
 import com.pde2015.futsalapp.utils.SessionManager;
@@ -30,7 +33,10 @@ import com.squareup.picasso.Picasso;
 
 import java.util.*;
 
-public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC, ListaStatiTC, AggiornaStatoTC {
+public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC, ListaStatiTC, AggiornaStatoTC,
+        SessioneIndietroTC{
+
+    private static final String TAG = "ProfileActivity";
 
     SharedPreferences pref;
     ImageView picImage;
@@ -48,13 +54,15 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        /*
         Bundle extras = getIntent().getExtras();
-        emailProfilo = (String)extras.get("email");
-        */
+        emailProfilo = (String)extras.get("emailProfilo");
+        Log.e(TAG, "emailProfilo: " + emailProfilo);
+
         pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         idSessione = pref.getLong("IdSessione", -1);
         email = pref.getString("EmailUtente", null);
+        Log.e(TAG, "idSessione: "+ idSessione);
+        Log.e(TAG, "email: "+email);
 
         cpv =(CircularProgressView)findViewById(R.id.progress_view);
 
@@ -72,17 +80,17 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
 
         // Ottenimento lista stati
         if(checkNetwork()) new ListaStatiAT(getApplicationContext(), this, idSessione, this, email).execute();
-        if(checkNetwork()) new GetGiocatoreAT(getApplicationContext(), this, this, idSessione, email /*emailProfilo*/).execute();
+        if(checkNetwork()) new GetGiocatoreAT(getApplicationContext(), this, this, idSessione, emailProfilo).execute();
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        /* if(emailProfilo.equals(email))*/
+        if(emailProfilo.equals(email))
             getMenuInflater().inflate(R.menu.menu_profile, menu);
-        /* else
-            getMenuInflater().inflate(R.menu.menu_profile_visit, menu);*/
+        else
+            getMenuInflater().inflate(R.menu.menu_profile_visit, menu);
         return true;
     }
 
@@ -103,11 +111,28 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
                 if(checkNetwork()) new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
             }
         }
+        else if(id == R.id.show_invites) {
+
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void done(boolean res, List<String> listaStati) {
+    public void onBackPressed(){
+        // Disabilitare Bottoni
+        // Abilitare rondella
+        if(checkNetwork()) {
+            PayloadBean bean = new PayloadBean();
+            bean.setIdSessione(idSessione);
+
+            cpv =(CircularProgressView)findViewById(R.id.progress_view);
+            cpv.setVisibility(View.VISIBLE);
+
+            new SessioneIndietroAT(getApplicationContext(), this, this, idSessione).execute(bean);
+        }
+    }
+
+    public void done(boolean res, List<String> listaStati, String tipoDone) {
         if(res && listaStati != null) {
             SessionManager sm = new SessionManager(listaStati);
             listaActivity = sm.getListaActivity();
@@ -156,6 +181,26 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
             startActivity(myIntent);
             this.finish();
         }
+    }
+
+    public void done(boolean res, String nuovoStato) {
+        cpv.setVisibility(View.GONE);
+        if(res) {
+            if(nuovoStato.equals(AppConstants.PRINCIPALE)) {
+                Intent myIntent = new Intent(getApplicationContext(), PrincipaleActivity.class);
+                myIntent.putExtra("idSessione", idSessione);
+                myIntent.putExtra("email", email);
+                startActivity(myIntent);
+                this.finish();
+            }
+        }
+    }
+
+    public void done(boolean res, List<Invito> listaInviti) {
+        if(res && listaInviti != null) {
+
+        }
+
     }
 
     public boolean checkNetwork() {

@@ -56,7 +56,7 @@ public class GetGiocatoreAT extends AsyncTask<Void, Void, GiocatoreBean> {
         else {
             alert.showAlertDialog(activity,
                     "Attenzione!",
-                    "response = "+response, false);
+                    "Si è verificato un problema. Riprovare!", false);
             taskCallback.done(false, null);
         }
 

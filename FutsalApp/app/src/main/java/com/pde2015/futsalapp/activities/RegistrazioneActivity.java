@@ -206,7 +206,7 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
         }
     }
 
-    public void done(boolean res, List<String> listaStati) {
+    public void done(boolean res, List<String> listaStati, String tipoDone) {
         if(res && listaStati != null) {
             SessionManager sm = new SessionManager(listaStati);
             listaActivity = sm.getListaActivity();

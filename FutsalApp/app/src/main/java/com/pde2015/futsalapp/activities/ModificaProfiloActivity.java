@@ -20,9 +20,11 @@ import com.appspot.futsalapp_1008.pdE2015.model.InfoGiocatoreBean;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.pde2015.futsalapp.AppConstants;
 import com.pde2015.futsalapp.R;
+import com.pde2015.futsalapp.asynctasks.AggiornaStatoAT;
 import com.pde2015.futsalapp.asynctasks.ListaStatiAT;
 import com.pde2015.futsalapp.asynctasks.SessioneIndietroAT;
 import com.pde2015.futsalapp.asynctasks.SetGiocatoreAT;
+import com.pde2015.futsalapp.taskcallbacks.AggiornaStatoTC;
 import com.pde2015.futsalapp.taskcallbacks.ListaStatiTC;
 import com.pde2015.futsalapp.taskcallbacks.SessioneIndietroTC;
 import com.pde2015.futsalapp.taskcallbacks.SetGiocatoreTC;
@@ -33,7 +35,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.*;
 
-public class ModificaProfiloActivity extends AppCompatActivity implements ListaStatiTC, SetGiocatoreTC, SessioneIndietroTC {
+public class ModificaProfiloActivity extends AppCompatActivity implements ListaStatiTC, SetGiocatoreTC, SessioneIndietroTC, AggiornaStatoTC {
 
     Long idSessione;
     String email, nome, ruolo, telefono, pic;
@@ -182,14 +184,14 @@ public class ModificaProfiloActivity extends AppCompatActivity implements ListaS
             if(nuovoStato.equals(AppConstants.PROFILO)) {
                 Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
                 myIntent.putExtra("idSessione", idSessione);
-                myIntent.putExtra("email", email);
+                myIntent.putExtra("emailProfilo", email);
                 startActivity(myIntent);
                 this.finish();
             }
         }
     }
 
-    public void done(boolean res, List<String> listaStati) {
+    public void done(boolean res, List<String> listaStati, String tipoDone) {
         if(res && listaStati != null) {
             SessionManager sm = new SessionManager(listaStati);
             listaActivity = sm.getListaActivity();
@@ -200,9 +202,23 @@ public class ModificaProfiloActivity extends AppCompatActivity implements ListaS
 
     public void done(boolean res, DefaultBean response) {
         if( res && response.getHttpCode().equals(AppConstants.OK)) {
+            if(listaActivity.contains(ModificaProfiloActivity.class)) {
+                PayloadBean p = new PayloadBean();
+                p.setIdSessione(idSessione);
+                p.setNuovoStato(AppConstants.PROFILO);
+                cpv =(CircularProgressView)findViewById(R.id.progress_view);
+                cpv.setVisibility(View.VISIBLE);
+                if(checkNetwork()) new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
+            }
+        }
+    }
+
+    public void done(boolean res) {
+        cpv.setVisibility(View.GONE);
+        if(res) {
             Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
             myIntent.putExtra("idSessione", idSessione);
-            myIntent.putExtra("email", email);
+            myIntent.putExtra("emailProfilo", email);
             startActivity(myIntent);
             this.finish();
         }

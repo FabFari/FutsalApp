@@ -1,9 +1,8 @@
 package com.pde2015.futsalapp.asynctasks;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.app.Activity;
-import android.util.Log;
 
 import com.appspot.futsalapp_1008.pdE2015.PdE2015;
 import com.appspot.futsalapp_1008.pdE2015.model.PayloadBean;
@@ -24,8 +23,8 @@ public class ListaStatiAT extends AsyncTask<Void, Void, ListaStatiBean> {
     ListaStatiTC taskCallback;
     Long idSessione;
     Activity activity;
-    AlertDialogManager alert = new AlertDialogManager();
     String email;
+    AlertDialogManager alert = new AlertDialogManager();
 
     public ListaStatiAT(Context context, ListaStatiTC taskCallback, Long idSessione, Activity activity) {
         this.context = context;
@@ -58,7 +57,7 @@ public class ListaStatiAT extends AsyncTask<Void, Void, ListaStatiBean> {
         }
         catch(IOException e) {
             // Toast.makeText(context, "Si è verificato un problema. Riprovare!", Toast.LENGTH_SHORT).show();
-            taskCallback.done(true, null);
+            taskCallback.done(true, null, "ListaStatiAT");
         }
 
         return null;
@@ -66,14 +65,12 @@ public class ListaStatiAT extends AsyncTask<Void, Void, ListaStatiBean> {
 
     protected void onPostExecute(ListaStatiBean response) {
         if(response != null && (response.getHttpCode() == null || !response.getHttpCode().equals(AppConstants.NOT_FOUND)))
-            taskCallback.done(true, response.getStatiSuccessivi());
+            taskCallback.done(true, response.getStatiSuccessivi(), "ListaStatiAT");
         else {
-            //Log.e("ListaStatiAT", "response = "+ response);
-            //if(response != null) Log.e("ListaStatiAT", "httpCde = " + response.getHttpCode());
             alert.showAlertDialog(activity,
                     "Attenzione!",
                     "Si è verificato un problema. Riprovare!", false);
-            taskCallback.done(false, null);
+            taskCallback.done(false, null, "ListaStatiAT");
         }
 
     }
