@@ -27,7 +27,9 @@
         android:id="@+id/groups_list_head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/color_primary_dark"
         android:paddingTop="30dp"
+        android:paddingBottom="10dp"
         android:textSize="20sp"
         android:layout_below="@+id/welcome_string"
         android:text="@string/groups_list_head"/>

@@ -41,7 +41,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC, SessioneIndietroTC,
-        EstIscrittoTC, ListaPartiteProposteConfermateTC, GetGruppoTC{
+        EstIscrittoTC, ListaPartiteProposteConfermateTC, GetGruppoTC, View.OnClickListener {
 
     private static final String TAG = "GruppoActivity";
 
@@ -52,6 +52,7 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
     boolean estIscritto = false;
     String nomeGruppo, emailAdmin, citta;
     com.google.api.client.util.DateTime dataCreazione;
+    FloatingActionButton fab;
 
     List<PartitaBean> listaPartite = new ArrayList<PartitaBean>();
 
@@ -194,6 +195,8 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
             getSupportActionBar().setLogo(R.drawable.logo_small);
             getSupportActionBar().setDisplayShowTitleEnabled(true);
             myList = (ListView)findViewById(R.id.group_lista_partite);
+            fab = (FloatingActionButton)findViewById(R.id.group_create_match);
+            fab.setOnClickListener(this);
 
             if(checkNetwork()) new ListaPartiteProposteConfermateAT(getApplicationContext(), this, idGruppo, idSessione, 0, GruppoActivity.this).execute();
 
@@ -219,6 +222,7 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
         //Toast.makeText(getApplicationContext(), "Id: "+view.getId(), Toast.LENGTH_LONG);
         switch (view.getId()) {
             case R.id.group_create_match:
+                Log.e(TAG, "Bottone Crea Partita cliccato!");
                 this.nuovoStato = AppConstants.CREA_PARTITA;
                 PayloadBean p = new PayloadBean();
                 p.setIdSessione(idSessione);
@@ -233,6 +237,7 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
     public void done(boolean res){
         if(res){
             if(this.nuovoStato.equals(AppConstants.CREA_PARTITA)){
+                Log.e(TAG, "Nel done di Aggiorna Stato per Crea Partita");
                 Intent myIntent = new Intent(getApplicationContext(), CreaPartitaActivity.class);
                 myIntent.putExtra("idSessione", idSessione);
                 myIntent.putExtra("email", emailUtente);
@@ -245,6 +250,7 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
                 myIntent.putExtra("idSessione", idSessione);
                 myIntent.putExtra("email", emailUtente);
                 myIntent.putExtra("idGruppo", idGruppo);
+                myIntent.putExtra("nomeGruppo", nomeGruppo);
                 startActivity(myIntent);
                 this.finish();
             }

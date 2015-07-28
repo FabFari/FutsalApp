@@ -100,13 +100,13 @@ public class CreaGruppoActivity extends AppCompatActivity implements ListaStatiT
 
     public void onRadioButtonClicked(View v){
         if( v.getId() == R.id.group_closed_radio ){
-            groupLogo.setBackgroundResource(R.drawable.group_closed);
+            groupLogo.setImageResource(R.drawable.group_closed);
             groupLogo.setBackgroundColor(R.color.color_primary);
             groupTypeDescr.setText(R.string.group_closed_description);
             Log.e(TAG, "Cliccato: "+v.getId()+"! Setto: "+ R.drawable.group_closed+", "+ R.color.color_primary+", "+R.string.group_closed_description);
         }
         else if(v.getId() == R.id.group_open_radio){
-            groupLogo.setBackgroundResource(R.drawable.group_open);
+            groupLogo.setImageResource(R.drawable.group_open);
             groupLogo.setBackgroundColor(R.color.color_primary);
             groupTypeDescr.setText(R.string.group_open_description);
             Log.e(TAG, "Cliccato: "+v.getId()+"! Setto: "+ R.drawable.group_open+", "+ R.color.color_primary+", "+R.string.group_open_description);

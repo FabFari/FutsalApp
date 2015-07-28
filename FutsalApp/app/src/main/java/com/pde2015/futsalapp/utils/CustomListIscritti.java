@@ -40,7 +40,7 @@ public class CustomListIscritti extends ArrayAdapter<Giocatore>
         TextView you = (TextView) rowView.findViewById(R.id.elemento_lista_iscritti_you);
 
         userName.setText(users.get(position).getNome());
-        if( users.get(position).equals(this.emailUtente) ) you.setText("Tu");
+        if( users.get(position).getEmail().equals(this.emailUtente) ) you.setText("Tu");
 
         Picasso.with(getContext())
                     .load(users.get(position).getFotoProfilo())

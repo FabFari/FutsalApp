@@ -11,6 +11,7 @@
     <string name="group_open_description">Un gruppo aperto è visibile nella schermata di ricerca, e chiunque può iscrivervisi.</string>
     <string name="group_closed_description">I gruppi chiusi non appaiono nella schermata di ricerca, e vi si può entrare solo su invito.</string>
     <string name="invitation_title">Inviti a gruppi</string>
+    <string name="no_subscribed">Nessun iscritto.</string>
     <string name="title_activity_login_registrati">LoginRegistratiActivity</string>
     <string name="title_activity_registrazione">Registrazione</string>
     <string name="title_activity_principale">FutsalApp</string>
@@ -24,6 +25,8 @@
     <string name="title_activity_invito">Invita Amico</string>
     <string name="title_activity_partita">Partita</string>
     <string name="title_activity_storico">Storico Gruppo</string>
+    <string name="title_activity_crea_voto">Vota</string>
+    <string name="title_activity_ricerca_campo">Ricerca Campo</string>
 
 
     <!-- Per SharedPreferences

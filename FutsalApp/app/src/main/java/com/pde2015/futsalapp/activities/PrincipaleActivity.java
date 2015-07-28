@@ -264,7 +264,10 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
                 startActivity(i);
             }
             else if(statoSuccessivo.equals(AppConstants.RICERCA_GRUPPO)){
-                //Vai alla schermata Ricerca Gruppo
+                Intent i = new Intent(PrincipaleActivity.this, RicercaGruppoActivity.class);
+                i.putExtra("idSessione", idSessione);
+                i.putExtra("email", emailUtente);
+                startActivity(i);
             }
             else if(statoSuccessivo.equals(AppConstants.PROFILO)){
                 Intent i = new Intent(PrincipaleActivity.this, ProfileActivity.class);
