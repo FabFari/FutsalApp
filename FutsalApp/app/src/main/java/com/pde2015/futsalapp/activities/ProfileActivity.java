@@ -1,40 +1,50 @@
 package com.pde2015.futsalapp.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appspot.futsalapp_1008.pdE2015.PdE2015;
 import com.appspot.futsalapp_1008.pdE2015.model.DefaultBean;
 import com.appspot.futsalapp_1008.pdE2015.model.GiocatoreBean;
 import com.appspot.futsalapp_1008.pdE2015.model.PayloadBean;
+import com.appspot.futsalapp_1008.pdE2015.model.InfoInvitoBean;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.pde2015.futsalapp.AppConstants;
 import com.pde2015.futsalapp.R;
 import com.pde2015.futsalapp.asynctasks.AggiornaStatoAT;
+import com.pde2015.futsalapp.asynctasks.ListaInvitiAT;
 import com.pde2015.futsalapp.asynctasks.SessioneIndietroAT;
 import com.pde2015.futsalapp.taskcallbacks.AggiornaStatoTC;
+import com.pde2015.futsalapp.taskcallbacks.ListaInvitiTC;
 import com.pde2015.futsalapp.taskcallbacks.ListaStatiTC;
 import com.pde2015.futsalapp.asynctasks.ListaStatiAT;
 import com.pde2015.futsalapp.taskcallbacks.GetGiocatoreTC;
 import com.pde2015.futsalapp.asynctasks.GetGiocatoreAT;
+import com.pde2015.futsalapp.taskcallbacks.RispondiInvitoTC;
 import com.pde2015.futsalapp.taskcallbacks.SessioneIndietroTC;
 import com.pde2015.futsalapp.utils.AlertDialogManager;
 import com.pde2015.futsalapp.utils.ConnectionDetector;
+import com.pde2015.futsalapp.utils.CustomListInviti;
 import com.pde2015.futsalapp.utils.SessionManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.*;
 
 public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC, ListaStatiTC, AggiornaStatoTC,
-        SessioneIndietroTC{
+        SessioneIndietroTC, RispondiInvitoTC, ListaInvitiTC {
 
     private static final String TAG = "ProfileActivity";
 
@@ -48,6 +58,18 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
     ConnectionDetector cd;
     boolean gone = false;
     CircularProgressView cpv;
+    String statoSuccessivo;
+    Long selectedGroup;
+    TextView emptyText;
+
+    // Per Lista Inviti
+    CustomListInviti customInviti;
+    private List<InfoInvitoBean> invitiList = new ArrayList<InfoInvitoBean>();
+    private ListView myList;
+    String nomiGruppi[];
+    String mittenti[];
+    ImageButton acceptButtons[];
+    ImageButton declineButtons[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +85,8 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
         email = pref.getString("EmailUtente", null);
         Log.e(TAG, "idSessione: "+ idSessione);
         Log.e(TAG, "email: "+email);
+
+        emptyText = (TextView) findViewById(android.R.id.empty);
 
         cpv =(CircularProgressView)findViewById(R.id.progress_view);
 
@@ -108,11 +132,18 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
                 p.setNuovoStato(AppConstants.MODIFICA_PROFILO);
                 CircularProgressView cd =(CircularProgressView)findViewById(R.id.progress_view);
                 cd.setVisibility(View.VISIBLE);
-                if(checkNetwork()) new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
+                if(checkNetwork()) {
+                    statoSuccessivo = AppConstants.MODIFICA_PROFILO;
+                    new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
+                }
             }
         }
         else if(id == R.id.show_invites) {
-
+            if(checkNetwork()) {
+                Log.e(TAG, "Bottone Mostra Inviti cliccato!");
+                cpv.setVisibility(View.VISIBLE);
+                new ListaInvitiAT(getApplicationContext(), this, idSessione, this).execute();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -171,15 +202,26 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
     public void done(boolean res)
     {
         if( res ) {
-            Intent myIntent = new Intent(getApplicationContext(), ModificaProfiloActivity.class);
-            myIntent.putExtra("idSessione", idSessione);
-            myIntent.putExtra("nome", nome);
-            myIntent.putExtra("email", email);
-            myIntent.putExtra("ruolo", ruolo);
-            myIntent.putExtra("telefono", telefono);
-            myIntent.putExtra("pic", pic);
-            startActivity(myIntent);
-            this.finish();
+            if(statoSuccessivo.equals(AppConstants.MODIFICA_PROFILO)) {
+                Intent myIntent = new Intent(getApplicationContext(), ModificaProfiloActivity.class);
+                myIntent.putExtra("idSessione", idSessione);
+                myIntent.putExtra("nome", nome);
+                myIntent.putExtra("email", email);
+                myIntent.putExtra("ruolo", ruolo);
+                myIntent.putExtra("telefono", telefono);
+                myIntent.putExtra("pic", pic);
+                startActivity(myIntent);
+                this.finish();
+            }
+            else {
+                Log.e(TAG, "Done AggiornaStato!");
+                Intent i = new Intent(getApplicationContext(), GruppoActivity.class);
+                i.putExtra("idGruppo", selectedGroup);
+                i.putExtra("idSessione", idSessione);
+                i.putExtra("email", emailProfilo);
+                startActivity(i);
+                this.finish();
+            }
         }
     }
 
@@ -196,11 +238,61 @@ public class ProfileActivity extends AppCompatActivity implements GetGiocatoreTC
         }
     }
 
-    public void done(boolean res, List<Invito> listaInviti) {
-        if(res && listaInviti != null) {
+    public void done(boolean res, List<InfoInvitoBean> listaInviti) {
+        Log.e(TAG, "Done ListaInviti!");
+        Log.e(TAG, "res: "+res+" listaInviti: "+listaInviti);
+        if(res) {
+            Log.e(TAG, "Nell'if di Done ListaInviti!");
+            cpv.setVisibility(View.GONE);
+            if(listaInviti == null || listaInviti.size() == 0)
+                Toast.makeText(getApplicationContext(), "Nessun nuovo invito ricevuto!", Toast.LENGTH_LONG).show();
+            else {
+                final AlertDialog.Builder invitiDialog = new AlertDialog.Builder(ProfileActivity.this);
+                final LayoutInflater inflater = getLayoutInflater();
+                final View convertView = (View) inflater.inflate(R.layout.custom_autocomplete_listview, null);
+                invitiDialog.setView(convertView);
+                //invitiDialog.setTitle("Inviti");
 
+                myList = (ListView) convertView.findViewById(R.id.customlistView);
+                emptyText = (TextView) convertView.findViewById(android.R.id.empty);
+
+                invitiList = listaInviti;
+
+                customInviti = new CustomListInviti(ProfileActivity.this, this, invitiList, myList, idSessione);
+
+                nomiGruppi = new String[invitiList.size()];
+                mittenti = new String[invitiList.size()];
+
+                for(int i = 0; i < invitiList.size(); i++){
+                    nomiGruppi[i] = invitiList.get(i).getNomeGruppo();
+                    mittenti[i] = invitiList.get(i).getEmailMittente();
+                }
+
+                myList.setEmptyView(emptyText);
+                myList.setAdapter(customInviti);
+
+                invitiDialog.create();
+                invitiDialog.show();
+
+            }
         }
 
+    }
+
+    public void done(boolean res, DefaultBean response, Long idGruppo, boolean answer) {
+        cpv.setVisibility(View.GONE);
+        if(res && response.getHttpCode().equals(AppConstants.OK)) {
+            Log.e(TAG, "Done RispondiInvito!");
+            if(checkNetwork() && answer) {
+                cpv.setVisibility(View.VISIBLE);
+                PayloadBean p = new PayloadBean();
+                p.setIdSessione(idSessione);
+                p.setNuovoStato(AppConstants.GRUPPO);
+                selectedGroup = idGruppo;
+                statoSuccessivo = AppConstants.GRUPPO;
+                new AggiornaStatoAT(getApplicationContext(), this, idSessione, this).execute(p);
+            }
+        }
     }
 
     public boolean checkNetwork() {

@@ -8,13 +8,23 @@
     <string name="welcome_string">Benvenuto,</string>
     <string name="groups_list_head">I tuoi gruppi</string>
     <string name="no_invitation">Nessun nuovo invito</string>
+    <string name="group_open_description">Un gruppo aperto è visibile nella schermata di ricerca, e chiunque può iscrivervisi.</string>
+    <string name="group_closed_description">I gruppi chiusi non appaiono nella schermata di ricerca, e vi si può entrare solo su invito.</string>
     <string name="invitation_title">Inviti a gruppi</string>
     <string name="title_activity_login_registrati">LoginRegistratiActivity</string>
     <string name="title_activity_registrazione">Registrazione</string>
     <string name="title_activity_principale">FutsalApp</string>
     <string name="title_activity_profile">Profilo</string>
     <string name="title_activity_modifica_profilo">Modifica Profilo</string>
-    <string name="title_activity_gruppo">GruppoActivity</string>
+    <string name="title_activity_gruppo">Gruppo</string>
+    <string name="title_activity_crea_gruppo">Crea Gruppo</string>
+    <string name="title_activity_ricerca_gruppo">Ricerca Gruppo</string>
+    <string name="title_activity_crea_partita">Crea Partita</string>
+    <string name="title_activity_iscritti_gruppo">Iscritti Gruppo</string>
+    <string name="title_activity_invito">Invita Amico</string>
+    <string name="title_activity_partita">Partita</string>
+    <string name="title_activity_storico">Storico Gruppo</string>
+
 
     <!-- Per SharedPreferences
     <string name="pref_name">MyPref</string>

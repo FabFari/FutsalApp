@@ -9,4 +9,5 @@
     <color name="white">#FFFFFF</color>
     <color name="grey">#DDDDDD</color>
     <color name="decline_color">#FF3D00</color>
+    <color name="red">#D50000</color>
 </resources>

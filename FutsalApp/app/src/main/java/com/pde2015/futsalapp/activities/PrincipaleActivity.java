@@ -2,6 +2,7 @@ package com.pde2015.futsalapp.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.appspot.futsalapp_1008.pdE2015.model.InfoGruppoBean;
 import com.appspot.futsalapp_1008.pdE2015.model.PayloadBean;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.pde2015.futsalapp.AppConstants;
 import com.pde2015.futsalapp.R;
 import com.pde2015.futsalapp.asynctasks.AggiornaStatoAT;
@@ -37,7 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class PrincipaleActivity extends AppCompatActivity implements ListaStatiTC, AggiornaStatoTC,
-        ListaGruppiIscrittoTC {
+        ListaGruppiIscrittoTC, View.OnClickListener {
 
     private static final String TAG = "PrincipaleActivity";
 
@@ -46,11 +48,15 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
     private Long idSessione;
     private String emailUtente;
 
+    FloatingActionButton fab;
+    boolean gone = false;
+
     String statoCorrente = AppConstants.PRINCIPALE;
     AlertDialogManager alert = new AlertDialogManager();
     ConnectionDetector cd;
     LinkedList<Class> listaActivity;
 
+    CircularProgressView cpv;
     SharedPreferences pref;
 
     String[] nomigruppi;
@@ -74,6 +80,7 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
         // Ottenimento parametri da schermata precedente
         Bundle extras = getIntent().getExtras();
         idSessione = (Long)extras.get("idSessione");
+        Log.e(TAG, "idSessione: "+idSessione);
 
         pref = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
         emailUtente = pref.getString("EmailUtente", null);
@@ -81,6 +88,9 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
 
         myList = (ListView)findViewById(R.id.listView1);
         emptyText = (TextView) findViewById(android.R.id.empty);
+
+        cpv =(CircularProgressView)findViewById(R.id.progress_view);
+        cpv.setVisibility(View.VISIBLE);
 
         // Ottenimento stati
         if(checkNetwork()) new ListaStatiAT(getApplicationContext(), this, idSessione, this).execute();
@@ -150,13 +160,28 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
             if(checkNetwork()){
                 statoSuccessivo = AppConstants.RICERCA_GRUPPO;
 
-                new AggiornaStatoAT(getApplicationContext(), (AggiornaStatoTC)this, idSessione, (PrincipaleActivity)myList.getContext()).execute();
+                new AggiornaStatoAT(getApplicationContext(), (AggiornaStatoTC)this, idSessione, (PrincipaleActivity)myList.getContext()).execute(p);
             }
             return true;
         }
 
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.create_group:
+                PayloadBean p = new PayloadBean();
+                p.setIdSessione(idSessione);
+                p.setNuovoStato(AppConstants.CREA_GRUPPO);
+                if(checkNetwork()){
+                    statoSuccessivo = AppConstants.CREA_GRUPPO;
+
+                    new AggiornaStatoAT(getApplicationContext(), (AggiornaStatoTC)this, idSessione, (PrincipaleActivity)myList.getContext()).execute(p);
+                }
+
+        }
     }
 
     public boolean checkNetwork() {
@@ -180,6 +205,12 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
         if(res && listaStati != null) {
             SessionManager sm = new SessionManager(listaStati);
             listaActivity = sm.getListaActivity();
+            if(!gone) {
+                gone = true;
+                cpv.setVisibility(View.GONE);
+                fab = (FloatingActionButton)findViewById(R.id.create_group);
+                fab.setOnClickListener(this);
+            }
         }
     }
 
@@ -204,6 +235,12 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
 
             myList.setEmptyView(emptyText);
             myList.setAdapter(adapterGroups);
+            if(!gone) {
+                gone = true;
+                cpv.setVisibility(View.GONE);
+                fab = (FloatingActionButton)findViewById(R.id.create_group);
+                fab.setOnClickListener(this);
+            }
         }
     }
 
@@ -216,10 +253,15 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
                 Intent i = new Intent(PrincipaleActivity.this, GruppoActivity.class);
                 i.putExtra("idGruppo", selectedGroup);
                 i.putExtra("idSessione", idSessione);
+                i.putExtra("email", emailUtente);
                 startActivity(i);
             }
             else if(statoSuccessivo.equals(AppConstants.CREA_GRUPPO)){
-                //Vai alla schermata Crea Gruppo
+                Intent i = new Intent(PrincipaleActivity.this, CreaGruppoActivity.class);
+                i.putExtra("email", emailUtente);
+                Log.e(TAG, "emailUtente: "+emailUtente);
+                i.putExtra("idSessione", idSessione);
+                startActivity(i);
             }
             else if(statoSuccessivo.equals(AppConstants.RICERCA_GRUPPO)){
                 //Vai alla schermata Ricerca Gruppo

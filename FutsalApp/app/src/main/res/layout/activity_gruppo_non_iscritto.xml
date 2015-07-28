@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- TextView per nome gruppo -->
+    <TextView
+        android:id="@+id/group_group_name"
+        android:text="Nome Gruppo"
+        android:textStyle="bold"
+        android:textColor="@color/color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35dp"/>
+
+    <!-- TextView per nome admin -->
+    <TextView
+        android:id="@+id/group_created_by"
+        android:text="Admin:"
+        android:paddingTop="20dp"
+        android:textColor="@color/color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_group_name"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:id="@+id/group_admin"
+        android:text="Nome admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_primary"
+        android:textSize="25dp"
+        android:layout_alignBottom="@+id/group_created_by"
+        android:layout_centerHorizontal="true" />
+
+    <!-- TextView per data creazione -->
+    <TextView
+        android:id="@+id/group_created_on"
+        android:text="Creato il:"
+        android:paddingTop="20dp"
+        android:textColor="@color/color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/group_created_by"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:id="@+id/group_date_creation"
+        android:text="Data creazione"
+        android:textColor="@color/color_primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_alignBottom="@+id/group_created_on"
+        android:layout_alignLeft="@+id/group_admin"
+        android:layout_alignStart="@+id/group_admin" />
+
+    <!-- TextView per città -->
+    <TextView
+        android:id="@+id/group_city"
+        android:paddingTop="20dp"
+        android:text="Città: "
+        android:textColor="@color/color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_below="@+id/group_created_on"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/group_city_name"
+        android:text="Città"
+        android:textColor="@color/color_primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:layout_alignBottom="@+id/group_city"
+        android:layout_alignLeft="@+id/group_date_creation"
+        android:layout_alignStart="@+id/group_date_creation" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/group_exit"
+        android:background="@color/color_accent"
+        android:textColor="@color/white"
+        android:text="Iscriviti!"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

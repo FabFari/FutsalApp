@@ -77,7 +77,7 @@ public class RegistrazioneActivity extends AppCompatActivity implements Sessione
         // Popolamento Spinner
         spinner = (Spinner)findViewById(R.id.ruoli_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.ruoli, android.R.layout.simple_spinner_item);
+                R.array.ruoli, /*android.R.layout.simple_spinner_item*/ R.layout.element_spinner_ruoli);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 

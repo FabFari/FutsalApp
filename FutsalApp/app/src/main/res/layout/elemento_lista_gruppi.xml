@@ -38,7 +38,7 @@
         android:layout_marginTop="1dip"
         android:layout_toRightOf="@+id/thumbnail"
         android:text="Group name"
-        android:layout_gravity="center_horizontal|top" />
+        android:layout_gravity="center_horizontal|center_vertical" />
 
     <!-- Group City -->
     <TextView
@@ -51,7 +51,6 @@
         android:layout_marginRight="5dip"
         android:textSize="20dip"
         android:textColor="@color/color_primary"
-        android:textStyle="bold"
         android:layout_gravity="bottom|right" />
 
 </android.support.v7.widget.CardView>

@@ -56,14 +56,9 @@ public class ListaGruppiIscrittoAT extends AsyncTask<Void, Void, ListaGruppiBean
         if(response != null && (response.getHttpCode() == null || response.getHttpCode().equals(AppConstants.OK)))
             taskCallback.done(true, response.getListaGruppi());
         else {
-            if (response != null )
-                alert.showAlertDialog(activity,
-                        "Attenzione!",
-                        "response: "+response.getResult(), false);
-            else
             alert.showAlertDialog(activity,
                     "Attenzione!",
-                    "Si è verificato un problema. Riprovare!", false);
+                    "Si e' verificato un problema. Riprovare!", false);
             taskCallback.done(false, null);
         }
 

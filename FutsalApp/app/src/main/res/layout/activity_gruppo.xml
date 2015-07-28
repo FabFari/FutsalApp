@@ -1,12 +1,169 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.pde2015.futsalapp.activities.GruppoActivity">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:id="@+id/group_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin" >
 
-</RelativeLayout>
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_alignTop="@+id/scrollView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+
+                <!-- TextView per nome gruppo -->
+                <TextView
+                    android:id="@+id/group_group_name"
+                    android:text="Nome Gruppo"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="35dp"/>
+
+                <!-- TextView per nome admin -->
+                <TextView
+                    android:id="@+id/group_created_by"
+                    android:text="Admin:"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/color_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/group_group_name"
+                    android:textSize="25dp"/>
+
+                <TextView
+                    android:id="@+id/group_admin"
+                    android:text="Nome admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_primary"
+                    android:textSize="25dp"
+                    android:layout_alignBottom="@+id/group_created_by"
+                    android:layout_centerHorizontal="true" />
+
+                <!-- TextView per data creazione -->
+                <TextView
+                    android:id="@+id/group_created_on"
+                    android:text="Creato il:"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/color_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/group_created_by"
+                    android:textSize="25dp"/>
+
+                <TextView
+                    android:id="@+id/group_date_creation"
+                    android:text="Data creazione"
+                    android:textColor="@color/color_primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:layout_alignBottom="@+id/group_created_on"
+                    android:layout_alignLeft="@+id/group_admin"
+                    android:layout_alignStart="@+id/group_admin" />
+
+                <!-- TextView per città -->
+                <TextView
+                    android:id="@+id/group_city"
+                    android:paddingTop="20dp"
+                    android:text="Città: "
+                    android:textColor="@color/color_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:layout_below="@+id/group_created_on"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:id="@+id/group_city_name"
+                    android:text="Città"
+                    android:textColor="@color/color_primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:layout_above="@+id/group_partite_head"
+                    android:layout_alignLeft="@+id/group_date_creation"
+                    android:layout_alignStart="@+id/group_date_creation" />
+
+                <!-- ListView per partite proposte/Confermate -->
+                <TextView
+                    android:id="@+id/group_partite_head"
+                    android:paddingTop="20dp"
+                    android:text="Partite Proposte/Confermate"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_primary_dark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:layout_below="@+id/group_city"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ListView
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/group_lista_partite"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:divider="@color/color_primary"
+                    android:dividerHeight="1dp"
+                    android:listSelector="@drawable/list_selector"
+                    android:layout_below="@+id/group_partite_head"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/group_exit"
+                    android:background="@color/decline_color"
+                    android:textColor="@color/white"
+                    android:text="Esci dal Gruppo"
+                    android:layout_below="@+id/group_lista_partite"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/group_relative_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        android:src="@drawable/add_partita"
+        android:clickable="true"
+        android:elevation="6dp"
+        app:borderWidth="0dp"
+        android:id="@+id/group_create_match"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/scrollView"
+        android:layout_alignEnd="@+id/scrollView" />
+
+</android.support.design.widget.CoordinatorLayout>

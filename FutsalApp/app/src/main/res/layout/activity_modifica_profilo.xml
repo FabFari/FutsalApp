@@ -37,6 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome:"
+                android:textColor="@color/color_primary_dark"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginTop="15dp"
                 android:paddingLeft="10dp"
@@ -48,8 +49,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/insertNome"
+                android:textColor="@color/color_primary"
                 android:paddingLeft="10dp"
                 android:hint="Inserisci nome"
+                android:textColorHint="@color/color_primary"
                 android:layout_below="@+id/nome"
                 android:inputType="textCapSentences"
                 android:imeOptions="actionNext"/>
@@ -58,6 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email:"
+                android:textColor="@color/color_primary_dark"
                 android:id="@+id/email"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginTop="5dp"
@@ -68,7 +72,9 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/color_primary"
                 android:hint="Inserisci la tua email"
+                android:textColorHint="@color/color_primary"
                 android:paddingLeft="10dp"
                 android:id="@+id/insertEmail"
                 android:layout_below="@+id/email"/>
@@ -77,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Telefono:"
+                android:textColor="@color/color_primary_dark"
                 android:id="@+id/telefono"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginTop="5dp"
@@ -87,7 +94,9 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/color_primary"
                 android:hint="Inserisci il tuo telefono"
+                android:textColorHint="@color/color_primary"
                 android:paddingLeft="10dp"
                 android:id="@+id/insertTelefono"
                 android:layout_below="@+id/email"/>
@@ -96,6 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ruolo Preferito:"
+                android:textColor="@color/color_primary_dark"
                 android:id="@+id/ruolo"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_marginTop="5dp"

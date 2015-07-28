@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pde2015.futsalapp.activities.CreaGruppoActivity">
+
+    <item android:id="@+id/confirm_create_group"
+        android:title="Conferma Crea Gruppo"
+        app:showAsAction="always"
+        android:icon="@drawable/checkmark" />
+
+</menu>

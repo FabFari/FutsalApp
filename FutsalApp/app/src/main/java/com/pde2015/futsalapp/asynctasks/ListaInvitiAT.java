@@ -2,6 +2,7 @@ package com.pde2015.futsalapp.asynctasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.appspot.futsalapp_1008.pdE2015.PdE2015;
 import com.appspot.futsalapp_1008.pdE2015.model.ListaInvitiBean;
@@ -16,6 +17,8 @@ import java.io.IOException;
  * Created by Fabrizio on 25/07/2015.
  */
 public class ListaInvitiAT extends AsyncTask<Void, Void, ListaInvitiBean> {
+    private static final String TAG = "ListaInvitiAT";
+
     Context context;
     ListaInvitiTC taskCallback;
     Long idSessione;
@@ -29,11 +32,11 @@ public class ListaInvitiAT extends AsyncTask<Void, Void, ListaInvitiBean> {
         this.activity = activity;
     }
 
-    protected ListaStatiBean doInBackground(Void... unused) {
+    protected ListaInvitiBean doInBackground(Void... unused) {
         PdE2015 apiHandler = AppConstants.getApiServiceHandle(null);
 
         try{
-
+            Log.e(TAG, "Nel DoInBackground di ListaInvitiAT!");
             PdE2015.Api.ListaInviti get = apiHandler.api().listaInviti(idSessione);
             ListaInvitiBean response = get.execute();
 
@@ -48,8 +51,11 @@ public class ListaInvitiAT extends AsyncTask<Void, Void, ListaInvitiBean> {
     }
 
     protected void onPostExecute(ListaInvitiBean response) {
-        if(response != null && response.getHttpCode().equals(AppConstants.OK))
+        Log.e(TAG, "Nell'OnPostExecute di ListaInvitiAT!");
+        if(response != null && response.getHttpCode().equals(AppConstants.OK)) {
+            Log.e(TAG, "Lancio il done di ListaInvitiAT");
             taskCallback.done(true, response.getListaInviti());
+        }
         else {
             alert.showAlertDialog(activity,
                     "Attenzione!",

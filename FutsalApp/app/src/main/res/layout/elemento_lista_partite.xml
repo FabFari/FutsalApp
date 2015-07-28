@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.Android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <!--Tipo Partita -->
+        <TextView
+            android:id="@+id/match_view_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_primary_dark"
+            android:textSize="25dip"
+            android:textStyle="bold"
+            android:layout_marginTop="5dip"
+            android:layout_marginLeft="5dip"
+            android:text="Tipo Partita"
+            android:layout_gravity="left|top" />
+
+        <!-- Data -->
+        <TextView
+            android:id="@+id/match_view_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/match_view_type"
+            android:text="Data: "
+            android:layout_marginRight="5dip"
+            android:textSize="20dip"
+            android:textColor="@color/color_primary"
+            android:layout_gravity="top|right" />
+
+        <!-- Proponitore -->
+        <TextView
+            android:id="@+id/match_view_nome_propone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/match_view_type"
+            android:text="Proposta da "
+            android:layout_marginLeft="5dip"
+            android:textSize="20dip"
+            android:textColor="@color/color_primary"
+            android:layout_gravity="bottom|left" />
+
+        <!-- Quota -->
+        <TextView
+            android:id="@+id/match_view_quota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/match_view_nome_propone"
+            android:text="Quota: "
+            android:layout_marginLeft="5dip"
+            android:layout_marginBottom="5dip"
+            android:textSize="20dip"
+            android:textColor="@color/color_primary"
+            android:layout_gravity="bottom|left" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

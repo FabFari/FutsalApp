@@ -59,6 +59,46 @@
             android:label="@string/title_activity_gruppo"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".activities.CreaGruppoActivity"
+            android:label="@string/title_activity_crea_gruppo"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.RicercaGruppoActivity"
+            android:label="@string/title_activity_ricerca_gruppo"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.CreaPartitaActivity"
+            android:label="@string/title_activity_crea_partita"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.IscrittiGruppoActivity"
+            android:label="@string/title_activity_iscritti_gruppo"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.InvitoActivity"
+            android:label="@string/title_activity_invito"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.PartitaActivity"
+            android:label="@string/title_activity_partita"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.StoricoActivity"
+            android:label="@string/title_activity_storico"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
