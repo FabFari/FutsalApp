@@ -255,6 +255,7 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
                 i.putExtra("idSessione", idSessione);
                 i.putExtra("email", emailUtente);
                 startActivity(i);
+                this.finish();
             }
             else if(statoSuccessivo.equals(AppConstants.CREA_GRUPPO)){
                 Intent i = new Intent(PrincipaleActivity.this, CreaGruppoActivity.class);
@@ -262,18 +263,21 @@ public class PrincipaleActivity extends AppCompatActivity implements ListaStatiT
                 Log.e(TAG, "emailUtente: "+emailUtente);
                 i.putExtra("idSessione", idSessione);
                 startActivity(i);
+                this.finish();
             }
             else if(statoSuccessivo.equals(AppConstants.RICERCA_GRUPPO)){
                 Intent i = new Intent(PrincipaleActivity.this, RicercaGruppoActivity.class);
                 i.putExtra("idSessione", idSessione);
                 i.putExtra("email", emailUtente);
                 startActivity(i);
+                this.finish();
             }
             else if(statoSuccessivo.equals(AppConstants.PROFILO)){
                 Intent i = new Intent(PrincipaleActivity.this, ProfileActivity.class);
                 i.putExtra("emailProfilo", emailUtente);
                 i.putExtra("idSessione", idSessione);
                 startActivity(i);
+                this.finish();
             }
         }
     }

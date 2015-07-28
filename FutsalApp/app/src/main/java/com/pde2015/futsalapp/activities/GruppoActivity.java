@@ -1,7 +1,6 @@
 package com.pde2015.futsalapp.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -14,6 +13,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 
 import com.appspot.futsalapp_1008.pdE2015.model.Gruppo;
+import com.appspot.futsalapp_1008.pdE2015.model.GruppoBean;
 import com.appspot.futsalapp_1008.pdE2015.model.InfoIscrittoGestisceBean;
 
 import com.appspot.futsalapp_1008.pdE2015.model.PartitaBean;
@@ -45,7 +45,6 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
 
     private static final String TAG = "GruppoActivity";
 
-    private final static String statoCorrente = AppConstants.GRUPPO;
     String emailUtente;
     private Long idSessione;
     private Long idGruppo;
@@ -60,6 +59,7 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
     com.google.api.client.util.DateTime[] datePartite;
     Float[] quote;
     Integer[] tipiPartite;
+    String[] statoPartite;
 
     long selectedMatch;
     CustomListMatches adapterMatches;
@@ -295,12 +295,15 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
             datePartite = new com.google.api.client.util.DateTime[listaPartite.size()];
             quote = new Float[listaPartite.size()];
             tipiPartite = new Integer[listaPartite.size()];
+            statoPartite = new String[listaPartite.size()];
 
             for(int i = 0; i < listaPartite.size(); i++){
                 nomiChiPropone[i] = listaPartite.get(i).getPartita().getPropone();
                 datePartite[i] = listaPartite.get(i).getPartita().getDataOraPartita();
                 quote[i] = listaPartite.get(i).getPartita().getQuota();
                 tipiPartite[i] = listaPartite.get(i).getTipo();
+                //TODO assegna statoPartita
+                statoPartite[i] = listaPartite.get(i).getPartita().getStatoCorrente();
             }
 
             myList = (ListView)findViewById(R.id.group_lista_partite);
@@ -331,13 +334,12 @@ public class GruppoActivity extends AppCompatActivity implements AggiornaStatoTC
     }
 
     //Done per getGruppo
-    public void done(boolean res, Gruppo infoGruppo){
+    public void done(boolean res, GruppoBean infoGruppo){
         if(res && infoGruppo != null){
-            this.nomeGruppo = infoGruppo.getNome();
-            //TODO: come la prendiamo la mail dell'admin?
-            this.emailAdmin = "Nome Admin";
-            this.citta = infoGruppo.getCitta();
-            this.dataCreazione = infoGruppo.getDataCreazione();
+            this.nomeGruppo = infoGruppo.getGruppo().getNome();
+            this.emailAdmin = infoGruppo.getEmailAdmin();
+            this.citta = infoGruppo.getGruppo().getCitta();
+            this.dataCreazione = infoGruppo.getGruppo().getDataCreazione();
 
             this.nomeGruppoView = (TextView)findViewById(R.id.group_group_name);
             this.dataCreazioneView = (TextView)findViewById(R.id.group_date_creation);

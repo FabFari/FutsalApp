@@ -239,6 +239,7 @@ public class RicercaGruppoActivity extends AppCompatActivity implements ListaSta
                 i.putExtra("idSessione", idSessione);
                 i.putExtra("email", emailUtente);
                 startActivity(i);
+                this.finish();
             }
         }
     }

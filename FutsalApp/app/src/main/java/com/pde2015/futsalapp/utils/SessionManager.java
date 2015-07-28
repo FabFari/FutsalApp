@@ -47,12 +47,12 @@ public class SessionManager {
                 listaActivity.add(CreaVotoActivity.class);
             else if(stato.equals(AppConstants.RICERCA_CAMPO))
                 listaActivity.add(RicercaCampoActivity.class);
+            else if(stato.equals(AppConstants.CAMPO))
+                listaActivity.add(CampoActivity.class);
+            else if(stato.equals(AppConstants.CREA_CAMPO))
+                listaActivity.add(CreaCampoActivity.class);
             //else if(stato.equals(AppConstants.DISPONIBILE_PER_PARTITA))
             //TODO listaActivity.add(DisponibileActivity.class);
-            //else if(stato.equals(AppConstants.CAMPO))
-            //TODO listaActivity.add(CampoActivity.class);
-            //else if(stato.equals(AppConstants.CREA_CAMPO))
-            //TODO listaActivity.add(CreaCampoActivity.class);
             //else if(stato.equals(AppConstants.ESCI_GRUPPO))
             //TODO listaActivity.add(EsciGruppoActivity.class);
             //else if(stato.equals(AppConstants.ANNULLA_PARTITA))

@@ -12,6 +12,13 @@
     <string name="group_closed_description">I gruppi chiusi non appaiono nella schermata di ricerca, e vi si può entrare solo su invito.</string>
     <string name="invitation_title">Inviti a gruppi</string>
     <string name="no_subscribed">Nessun iscritto.</string>
+    <string name="lunedi">Lunedì</string>
+    <string name="martedi">Martedì</string>
+    <string name="mercoledi">Mercoledì</string>
+    <string name="giovedi">Giovedì</string>
+    <string name="venerdi">Venerdì</string>
+    <string name="sabato">Sabato</string>
+    <string name="domenica">Domenica</string>
     <string name="title_activity_login_registrati">LoginRegistratiActivity</string>
     <string name="title_activity_registrazione">Registrazione</string>
     <string name="title_activity_principale">FutsalApp</string>
@@ -27,7 +34,8 @@
     <string name="title_activity_storico">Storico Gruppo</string>
     <string name="title_activity_crea_voto">Vota</string>
     <string name="title_activity_ricerca_campo">Ricerca Campo</string>
-
+    <string name="title_activity_crea_campo">Crea Campo</string>
+    <string name="title_activity_campo">Campo</string>
 
     <!-- Per SharedPreferences
     <string name="pref_name">MyPref</string>

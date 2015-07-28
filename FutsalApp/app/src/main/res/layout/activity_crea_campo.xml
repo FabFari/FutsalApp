@@ -1,0 +1,183 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.pde2015.futsalapp.activities.CreaCampoActivity">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="fill_horizontal|fill_vertical"
+            android:id="@+id/lin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inserisci i dati del nuovo campo!"
+                android:textSize="25dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/color_primary_dark"
+                android:textStyle="bold"
+                android:id="@+id/textView3"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textColor="@color/color_primary_dark"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/nome"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/insertNome"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_primary"
+                android:hint="Inserisci nome"
+                android:textColorHint="@color/color_primary"
+                android:layout_below="@+id/nome"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionNext"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telefono:"
+                android:textColor="@color/color_primary_dark"
+                android:id="@+id/telefono"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/insertNome"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_primary"
+                android:hint="Inserisci il tuo telefono"
+                android:textColorHint="@color/color_primary"
+                android:paddingLeft="10dp"
+                android:id="@+id/insertTelefono"
+                android:layout_below="@+id/telefono"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prezzo:"
+                android:id="@+id/prezzo"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/color_primary_dark"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/insertTelefono"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_primary"
+                android:hint="Inserisci il prezzo"
+                android:textColorHint="@color/color_primary"
+                android:paddingLeft="10dp"
+                android:id="@+id/insertPrezzo"
+                android:layout_below="@+id/prezzo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Città:"
+                android:textColor="@color/color_primary_dark"
+                android:id="@+id/citta"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/insertPrezzo"/>
+
+            <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/insertCitta"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_primary"
+                android:textColorHint="@color/color_primary"
+                android:hint="Inserisci la città"
+                android:paddingLeft="10dp"
+                android:layout_below="@+id/citta"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Indirizzo:"
+                android:textColor="@color/color_primary_dark"
+                android:id="@+id/indirizzo"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/insertCitta"/>
+
+            <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/insertIndirizzo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_primary"
+                android:textColorHint="@color/color_primary"
+                android:hint="Inserisci l'indirizzo"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_below="@+id/indirizzo"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/giorniChiusura"
+                android:text="Giorni Chiusura"
+                android:textColor="@color/white"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_weight="0.08"
+                android:background="@color/color_primary"
+                android:layout_below="@+id/insertIndirizzo"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        app:cpv_animAutostart="true"
+        app:cpv_indeterminate="true"
+        app:cpv_color="@color/color_primary"
+        android:visibility="visible"/>
+
+</RelativeLayout>

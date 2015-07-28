@@ -246,7 +246,6 @@ public class CreaPartitaActivity extends AppCompatActivity implements View.OnCli
             p.setIdSessione(this.idSessione);
             p.setNuovoStato(AppConstants.PARTITA);
             if(checkNetwork()) new AggiornaStatoAT(getApplicationContext(), this, idSessione, CreaPartitaActivity.this).execute(p);
-
         }
     }
 
@@ -262,6 +261,7 @@ public class CreaPartitaActivity extends AppCompatActivity implements View.OnCli
                 i.putExtra("idSessione", idSessione);
                 i.putExtra("email", emailUtente);
                 startActivity(i);
+                this.finish();
             }
         }
     }

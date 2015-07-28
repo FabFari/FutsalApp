@@ -213,6 +213,7 @@ public class CreaGruppoActivity extends AppCompatActivity implements ListaStatiT
             i.putExtra("email", emailUtente);
             Log.e(TAG, "EMAIL="+emailUtente);
             startActivity(i);
+            this.finish();
 
         }
     }
