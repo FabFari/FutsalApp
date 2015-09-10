@@ -1,0 +1,136 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pde2015.futsalapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.DesignDemo" >
+
+        <!-- Per Sign-In Google -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".activities.SplashscreenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoActionBarTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.LoginRegistratiActivity"
+            android:label="@string/title_activity_login_registrati"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoActionBarTheme" >
+        </activity>
+        <activity
+            android:name=".activities.RegistrazioneActivity"
+            android:label="@string/title_activity_registrazione"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.PrincipaleActivity"
+            android:label="@string/title_activity_principale"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.ModificaProfiloActivity"
+            android:label="@string/title_activity_modifica_profilo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.GruppoActivity"
+            android:label="@string/title_activity_gruppo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.CreaGruppoActivity"
+            android:label="@string/title_activity_crea_gruppo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.RicercaGruppoActivity"
+            android:label="@string/title_activity_ricerca_gruppo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.CreaPartitaActivity"
+            android:label="@string/title_activity_crea_partita"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.IscrittiGruppoActivity"
+            android:label="@string/title_activity_iscritti_gruppo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.PartitaActivity"
+            android:label="@string/title_activity_partita"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.StoricoActivity"
+            android:label="@string/title_activity_storico"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!--
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait" >
+        </activity> -->
+        <activity
+            android:name=".activities.CreaVotoActivity"
+            android:label="@string/title_activity_crea_voto"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.RicercaCampoActivity"
+            android:label="@string/title_activity_ricerca_campo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.CreaCampoActivity"
+            android:label="@string/title_activity_crea_campo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.CampoActivity"
+            android:label="@string/title_activity_campo"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.InvitaGiocatoreActivity"
+            android:label="@string/title_activity_invita_giocatore"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.PartitaGiocataActivity"
+            android:label="@string/title_activity_partita_giocata"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activities.DisponibileActivity"
+            android:label="@string/title_activity_disponibile"
+            android:screenOrientation="portrait" >
+        </activity>
+    </application>
+
+
+</manifest>

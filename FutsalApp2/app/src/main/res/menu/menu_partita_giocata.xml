@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pde2015.futsalapp.activities.PartitaGiocataActivity">
+
+    <item android:id="@+id/vote"
+        android:title="Vota Uomo Partita"
+        app:showAsAction="always"
+        android:icon="@drawable/voto_uomo_partita" />
+</menu>

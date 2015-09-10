@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <CheckBox android:id="@+id/lunedi_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lunedi"
+        android:textSize="25sp"
+        android:textColor="@color/color_primary" />
+
+    <View
+        android:id="@+id/horiz_row"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/color_primary_dark"
+        android:layout_below="@id/invitation_text"/>
+
+    <CheckBox android:id="@+id/martedi_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/martedi"
+        android:textSize="25sp"
+        android:textColor="@color/color_primary" />
+
+    <View
+        android:id="@+id/horiz_row"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/color_primary_dark"
+        android:layout_below="@id/invitation_text"/>
+
+    <CheckBox android:id="@+id/mercoledi_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mercoledi"
+        android:textSize="25sp"
+        android:textColor="@color/color_primary" />
+
+    <View
+        android:id="@+id/horiz_row"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/color_primary_dark"
+        android:layout_below="@id/invitation_text"/>
+
+    <CheckBox android:id="@+id/giovedi_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/giovedi"
+        android:textSize="25sp"
+        android:textColor="@color/color_primary" />
+
+    <View
+        android:id="@+id/horiz_row"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/color_primary_dark"
+        android:layout_below="@id/invitation_text"/>
+
+    <CheckBox android:id="@+id/venerdi_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/venerdi"
+        android:textSize="25sp"
+        android:textColor="@color/color_primary" />
+
+    <View
+        android:id="@+id/horiz_row"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/color_primary_dark"
+        android:layout_below="@id/invitation_text"/>
+
+    <CheckBox android:id="@+id/sabato_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sabato"
+        android:textSize="25sp"
+        android:textColor="@color/color_primary" />
+
+    <View
+        android:id="@+id/horiz_row"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/color_primary_dark"
+        android:layout_below="@id/invitation_text"/>
+
+    <CheckBox android:id="@+id/domenica_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/domenica"
+        android:textSize="25sp"
+        android:textColor="@color/color_primary" />
+
+</LinearLayout>

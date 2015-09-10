@@ -1,0 +1,178 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.pde2015.futsalapp.activities.CampoActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <!-- TextView per nome campo -->
+        <TextView
+            android:id="@+id/campo_name"
+            android:text="Nome Campo"
+            android:textStyle="bold"
+            android:textColor="@color/color_primary_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@layout/custom_border"
+            android:id="@+id/linear_border"
+            android:layout_below="@+id/campo_name">
+
+            <!-- TextView per indirizzo -->
+            <TextView
+                android:id="@+id/campo_address_head"
+                android:text="Indirizzo:"
+                android:paddingTop="20dp"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"/>
+            <!-- android:layout_below="@+id/campo_name" -->
+
+            <!-- TextView per indirizzo -->
+            <TextView
+                android:id="@+id/campo_address"
+                android:text="Indirizzo"
+                android:textColor="@color/color_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                />
+            <!-- android:layout_below="@+id/campo_address_head"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" -->
+
+            <!-- TextView per Città -->
+            <TextView
+                android:id="@+id/campo_city_head"
+                android:text="Città:"
+                android:paddingTop="10dp"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp" />
+            <!-- android:layout_below="@+id/campo_address"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" -->
+
+            <TextView
+                android:id="@+id/campo_city"
+                android:text="Nome Città"
+                android:textColor="@color/color_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"  />
+                <!-- android:layout_below="@+id/campo_city_head"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" -->
+
+            <!-- TextView per Telefono -->
+            <TextView
+                android:id="@+id/campo_phone_head"
+                android:text="Telefono:"
+                android:paddingTop="10dp"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp" />
+                <!-- android:layout_below="@+id/campo_city"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" -->
+
+            <TextView
+                android:id="@+id/campo_phone"
+                android:text="Numero di Telefono"
+                android:textColor="@color/color_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"  />
+                <!-- android:layout_below="@+id/campo_phone_head"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"-->
+
+            <!-- TextView per Prezzo -->
+            <TextView
+                android:id="@+id/campo_price_head"
+                android:text="Prezzo:"
+                android:paddingTop="10dp"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp" />
+                <!-- android:layout_below="@+id/campo_phone"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" -->
+
+            <TextView
+                android:id="@+id/campo_price"
+                android:text="Prezzo campo"
+                android:textColor="@color/color_primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp" />
+                <!-- android:layout_below="@+id/campo_price_head"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" -->
+
+        </LinearLayout>
+
+    <!-- TextView per Giorni di chiusura -->
+    <TextView
+        android:id="@+id/campo_days_head"
+        android:text="Giorni di chiusura:"
+        android:paddingTop="10dp"
+        android:textColor="@color/color_primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_below="@+id/linear_border"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/campo_days"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:divider="@color/color_primary"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/list_selector"
+        android:layout_below="@+id/campo_days_head"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView android:id="@android:id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="5dp"
+        android:text="Nessun giorno di chiusura."
+        android:layout_below="@+id/campo_days"
+        android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <com.github.rahatarmanahmed.cpv.CircularProgressView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_view"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:visibility="visible"
+        android:layout_centerInParent="true"
+        app:cpv_animAutostart="true"
+        app:cpv_indeterminate="true"
+        app:cpv_color="@color/color_primary" />
+
+</RelativeLayout>

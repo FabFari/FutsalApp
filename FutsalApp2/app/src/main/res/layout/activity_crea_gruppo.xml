@@ -1,0 +1,154 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.pde2015.futsalapp.activities.CreaGruppoActivity">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="fill_horizontal|fill_vertical"
+            android:id="@+id/lin"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="Crea un nuovo gruppo!"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/color_primary_dark"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="20dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/color_primary_dark"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/create_group_name_head"/>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/create_group_name"
+                android:paddingLeft="10dp"
+                android:textColor="@color/color_primary"
+                android:hint="Inserisci qui il nome del gruppo"
+                android:textColorHint="@color/color_primary"
+                android:layout_below="@+id/create_group_name_head"
+                android:inputType="textCapSentences"
+                android:imeOptions="actionNext" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="Città:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/color_primary_dark"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <AutoCompleteTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/insertCitta"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_primary"
+                android:textColorHint="@color/color_primary"
+                android:hint="Inserisci qui la città dove giocherete"
+                android:paddingLeft="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:text="Tipo del gruppo:"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/color_primary_dark"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <RadioGroup
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/create_group_type"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+                <RadioButton android:id="@+id/group_open_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="20dp"
+                    android:textSize="15dp"
+                    android:text="Gruppo Aperto"
+                    android:textColor="@color/color_primary"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/group_closed_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="Gruppo Chiuso"
+                    android:textColor="@color/color_primary"
+                    android:onClick="onRadioButtonClicked"/>
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="25dp">
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/create_group_logo"
+                    android:src="@drawable/gruppo_open_button"
+                    android:layout_marginBottom="44dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@string/group_open_description"
+                    android:id="@+id/group_type_description"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/color_primary_dark"
+                    android:textStyle="italic|bold"
+                    android:paddingLeft="10dp"
+                    android:layout_alignBottom="@+id/create_group_logo"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toRightOf="@+id/create_group_logo"
+                    android:layout_toEndOf="@+id/create_group_logo" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

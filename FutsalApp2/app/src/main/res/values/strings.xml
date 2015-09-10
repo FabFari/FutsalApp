@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">FutsalApp</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="edit_profile">Modifica Profilo</string>
+    <string name="show_invites">Mostra Inviti</string>
+    <string name="welcome_string">Benvenuto,</string>
+    <string name="groups_list_head">I tuoi gruppi</string>
+    <string name="no_invitation">Nessun nuovo invito</string>
+    <string name="group_open_description">Un gruppo aperto è visibile nella schermata di ricerca, e chiunque può iscrivervisi.</string>
+    <string name="group_closed_description">I gruppi chiusi non appaiono nella schermata di ricerca, e vi si può entrare solo su invito.</string>
+    <string name="invitation_title">Inviti a gruppi</string>
+    <string name="no_subscribed">Nessun iscritto.</string>
+    <string name="no_matches">Nessuna partita.</string>
+    <string name="lunedi">Lunedì</string>
+    <string name="martedi">Martedì</string>
+    <string name="mercoledi">Mercoledì</string>
+    <string name="giovedi">Giovedì</string>
+    <string name="venerdi">Venerdì</string>
+    <string name="sabato">Sabato</string>
+    <string name="domenica">Domenica</string>
+    <string name="title_activity_login_registrati">LoginRegistratiActivity</string>
+    <string name="title_activity_registrazione">Registrazione</string>
+    <string name="title_activity_principale">FutsalApp</string>
+    <string name="title_activity_profile">Profilo</string>
+    <string name="title_activity_modifica_profilo">Modifica Profilo</string>
+    <string name="title_activity_gruppo">Gruppo</string>
+    <string name="title_activity_crea_gruppo">Crea Gruppo</string>
+    <string name="title_activity_ricerca_gruppo">Ricerca Gruppo</string>
+    <string name="title_activity_crea_partita">Crea Partita</string>
+    <string name="title_activity_iscritti_gruppo">Iscritti Gruppo</string>
+    <string name="title_activity_invito">Invita Amico</string>
+    <string name="title_activity_partita">Partita</string>
+    <string name="title_activity_storico">Storico Gruppo</string>
+    <string name="title_activity_crea_voto">Vota</string>
+    <string name="title_activity_ricerca_campo">Ricerca Campo</string>
+    <string name="title_activity_crea_campo">Crea Campo</string>
+    <string name="title_activity_campo">Campo</string>
+    <string name="title_activity_invita_giocatore">Invita Giocatore</string>
+    <string name="title_activity_partita_giocata">Partita Giocata</string>
+    <string name="title_activity_disponibile">Gestione Disponibile</string>
+
+    <!-- Per SharedPreferences
+    <string name="pref_name">MyPref</string>
+    <string name="sess_pref">IdSessione</string>
+    <string name="email_pref">EmailUtente</string>
+    -->
+    <string-array name="ruoli">
+        <item>Portiere</item>
+        <item>Difensore</item>
+        <item>Centrocampista</item>
+        <item>Attaccante</item>
+    </string-array>
+
+    <string-array name="amici_calcetto">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="amici_calciotto">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+    </string-array>
+
+    <string-array name="amici_calcio">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'FutsalApp'
+            keyPassword 'FutsalApp'
+            storeFile file('C:/Users/Roberto/FutsalApp.keystore')
+            storePassword 'FutsalApp'
+        }
+    }
+
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.pde2015.futsalapp"
+        minSdkVersion 14
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+        // Enabling multidex support.
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    provided fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.1'
+
+    /* CARD VIEW */
+    compile 'com.android.support:support-v4:22.0.3'
+    compile 'com.android.support:design:22.2.0'
+    compile 'com.android.support:cardview-v7:22.2.0'
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    // Progress Bar
+    compile 'com.github.rahatarmanahmed:circularprogressview:2.3.2'
+
+    compile 'com.google.api-client:google-api-client-android:1.20.0'
+    // The following client libraries make HTTP/JSON on Android easier.
+    // Android extensions for Google HTTP Client.
+    compile('com.google.http-client:google-http-client-android:1.20.0') {
+        exclude(group: 'com.google.android', module: 'android')
+    }
+    compile files('libs/picasso-2.4.0.jar')
+    compile 'com.github.markushi:circlebutton:1.1'
+
+    compile 'com.google.android.gms:play-services-plus:7.5.0'
+    compile 'com.google.android.gms:play-services-identity:7.5.0'
+
+    compile 'com.android.support:support-v4:22.2.1'
+}

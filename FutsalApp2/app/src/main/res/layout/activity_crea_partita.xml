@@ -1,0 +1,172 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.pde2015.futsalapp.activities.CreaPartitaActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_alignTop="@+id/scrollView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+
+            <!-- TextView per nome gruppo -->
+            <TextView
+                android:id="@+id/group_group_name"
+                android:text="Organizza una partita!"
+                android:textStyle="bold"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/create_match_type_head"
+                android:text="Tipo:"
+                android:paddingTop="20dp"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="56dp" />
+
+            <RadioGroup
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/create_match_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/create_match_type_head"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+                <RadioButton android:id="@+id/calcetto_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="20dp"
+                    android:textSize="15dp"
+                    android:text="Calcetto"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/calciotto_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="Calciotto"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/calcio_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="Calcio"
+                    android:onClick="onRadioButtonClicked"/>
+            </RadioGroup>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/create_match_icon_1"
+                android:src="@drawable/calcetto_icon"
+                android:layout_alignTop="@+id/create_match_type"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@+id/create_match_type" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:text="vs"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:layout_alignTop="@+id/create_match_icon_1"
+                android:layout_toRightOf="@+id/create_match_icon_1"
+                android:layout_alignBottom="@+id/create_match_icon_1" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/create_match_icon_2"
+                android:src="@drawable/calcetto_icon"
+                android:layout_alignTop="@+id/textView"
+                android:layout_toRightOf="@+id/textView"
+                android:layout_toEndOf="@+id/textView"
+                android:layout_alignBottom="@+id/textView" />
+
+            <TextView
+                android:id="@+id/create_match_date_head"
+                android:text="Data e Ora:"
+                android:paddingTop="20dp"
+                android:textColor="@color/color_primary_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"
+                android:layout_below="@+id/create_match_type"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                android:layout_below="@+id/create_match_date_head"
+                android:id="@+id/create_match_date_layout">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:id="@+id/txtDate">
+                    <requestFocus></requestFocus>
+                </EditText>
+                <Button
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:background="@color/color_primary"
+                    android:id="@+id/btnCalendar"
+                    android:text="Imposta data"
+                    android:layout_width="120dp">
+                </Button>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/create_match_date_layout"
+                android:id="@+id/create_match_time_layout">
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:id="@+id/txtTime">
+                </EditText>
+                <Button
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnTimePicker"
+                    android:text="Imposta ora"
+                    android:textColor="@color/white"
+                    android:background="@color/color_primary"
+                    android:layout_width="120dp">
+                </Button>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

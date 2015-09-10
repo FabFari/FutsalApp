@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pde2015.futsalapp.activities.CreaVotoActivity">
+
+    <item android:id="@+id/confirm_vote"
+        android:title="Conferma Voto"
+        app:showAsAction="always"
+        android:icon="@drawable/checkmark" />
+</menu>

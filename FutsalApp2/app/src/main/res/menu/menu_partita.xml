@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pde2015.futsalapp.activities.PartitaActivity">
+
+
+    <item android:id="@+id/partecipa"
+        android:title="Partecipa"
+        app:showAsAction="always"
+        android:icon="@drawable/add_partita" />
+
+    <item android:id="@+id/add_campo"
+        android:title="Imposta Campo"
+        app:showAsAction="always"
+        android:icon="@drawable/add_campo" />
+
+    <item android:id="@+id/match_cancel"
+        android:title="Conferma Partita"
+        app:showAsAction="always"
+        android:icon="@drawable/decline" />
+
+    <item android:id="@+id/match_confirm"
+        android:title="Conferma Partita"
+        app:showAsAction="always"
+        android:icon="@drawable/checkmark" />
+
+
+</menu>

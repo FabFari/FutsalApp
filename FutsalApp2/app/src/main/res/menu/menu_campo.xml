@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.pde2015.futsalapp.activities.CampoActivity">
+
+    <item android:id="@+id/select_campo_confirm"
+        android:title="Conferma Scelta"
+        app:showAsAction="always"
+        android:icon="@drawable/checkmark" />
+
+</menu>

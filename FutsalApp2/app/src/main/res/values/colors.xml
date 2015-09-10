@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="window_background">#FFF5F5F5</color>
+    <!-- Colore barra notifiche -->
+    <color name="color_primary_dark">#6D8020</color>
+    <!-- Colore action bar -->
+    <color name="color_primary">#A1BD48</color>
+    <color name="color_accent">#AEEA00</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey">#DDDDDD</color>
+    <color name="decline_color">#FF3D00</color>
+    <color name="red">#D50000</color>
+</resources>
